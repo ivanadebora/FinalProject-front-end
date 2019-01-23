@@ -7,7 +7,7 @@ class HeaderTID extends Component {
             <header id="header" className="header header-hide">
                 <div className="container">
                     <div id="logo" className="pull-left">
-                        <a href="#body"><img src="img/travelID.png" alt="logoTID" width="150px"/></a>
+                        <a href="/"><img src="img/travelID.png" alt="logoTID" width="150px"/></a>
                     </div>
                     <nav id="nav-menu-container">
                         <ul className="nav-menu">
@@ -21,8 +21,8 @@ class HeaderTID extends Component {
                                     <li><a href="#entertainment">Hiburan</a></li>
                                 </ul>
                             </li>
-                            <li className="menu-active"><a href="#about-us">Masuk <i className="fa fa-user"/></a></li>
-                            <li className="register"><a href="#features">Register</a></li>
+                            <li className="menu-active"><a href="/login">Masuk <i className="fa fa-user"/></a></li>
+                            <li className="register"><a href="/register">Daftar</a></li>
                             {/* <li><a href="#screenshots">Screenshots</a></li>
                             <li><a href="#team">Team</a></li>
                             <li><a href="#pricing">Pricing</a></li>

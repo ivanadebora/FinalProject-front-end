@@ -1389,7 +1389,8 @@ body.mobile-nav-active #mobile-nav-toggle i {
 
 .footer .copyrights {
   background: #fff;
-  margin-top: 30px;
+  height: 30px;
+  margin-bottom: 10px;
   text-align: center;
   padding: 15px;
 }
