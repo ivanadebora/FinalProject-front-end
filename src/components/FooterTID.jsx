@@ -6,7 +6,7 @@ class FooterTID extends Component {
             <div className="footer">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-12 col-lg-6">
+                        <div className="col-md-12 col-lg-3">
                             <div className="footer-logo">
                                 <img src="img/travelID.png" alt="logoTID" width="200px"/>
                             <div>
@@ -18,7 +18,7 @@ class FooterTID extends Component {
                             </div>
                             </div>
                         </div>
-                        <div className="col-sm-6 col-md-3 col-lg-2">
+                        <div className="col-sm-6 col-md-3 col-lg-3">
                             <div className="list-menu">
                                 <h4>Tentang travelID</h4>
                                 <ul className="list-unstyled">
@@ -28,20 +28,18 @@ class FooterTID extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-sm-6 col-md-3 col-lg-2">
+                        <div className="col-sm-6 col-md-3 col-lg-3">
                             <div className="list-menu">
                                 <h4>Produk</h4>
                                 <ul className="list-unstyled">
                                     <li><a href="#1aa">Hotel</a></li>
                                     <li><a href="#2aa">Penerbangan</a></li>
-                                    <li><a href="#3aaa">Kereta</a></li>
-                                    <li><a href="#3aaa">Bus</a></li>
-                                    <li><a href="#3aaa">Hiburan</a></li>
+                                    <li><a href="#3aaa">Aktivitas</a></li>
                                    
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-sm-6 col-md-3 col-lg-2">
+                        <div className="col-sm-6 col-md-3 col-lg-3">
                             <div className="list-menu">
                                 <h4>Ketentuan Penggunaan</h4>
                                 <ul className="list-unstyled">

@@ -8,15 +8,15 @@ class Login extends Component {
         <div className="container">
           <div className="signin-content">
             <div className="signin-image">
-              <figure><img src="img/chair-beach.png" alt="sing up" width="300px"/></figure>
-              <a href="#dddd" className="signup-image-link">Create an account</a>
+              <figure><img src="img/travel-bag.png" alt="sing up" width="350px"/></figure>
+              <a href="/register" className="signup-image-link">Create an account</a>
             </div>
             <div className="signin-form">
               <h2 className="form-title">Sign up</h2>
               <form method="POST" className="register-form" id="login-form">
                 <div className="form-group">
-                  <label htmlFor="your_name"><i className="zmdi zmdi-account material-icons-name" /></label>
-                  <input type="text" name="your_name" id="your_name" placeholder="Your Name" />
+                  <label htmlFor="username"><i className="zmdi zmdi-account material-icons-name" /></label>
+                  <input type="text" name="username" id="username" placeholder="Your Username" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="your_pass"><i className="zmdi zmdi-lock" /></label>

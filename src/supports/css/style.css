@@ -77,6 +77,9 @@ span {
 .container-full {
   padding-left: 0;
   padding-right: 0;
+  margin-left: 40px;
+  margin-right: 20px;
+  margin-top: 10px;
 }
 
 .btn {
@@ -204,7 +207,7 @@ span {
 
 #hero .hero-container {
   position: absolute;
-  bottom: 150;
+  bottom: 0;
   top: 0;
   left: 0;
   right: 0;
@@ -335,6 +338,18 @@ span {
   min-width: 180px;
 }
 
+.nav-menu ul li.font1 a{
+  font-size: 15px
+}
+
+.nav-menu ul li.menu-has-children a{
+  font-size: 15px
+}
+
+.nav-menu ul li.menu-active a{
+  font-size: 15px
+}
+
 .nav-menu li.register a {
   color: #fff;
   background: #2abe8d;
@@ -346,7 +361,7 @@ span {
   margin-left: 8px;
   margin-top: 2px;
   line-height: 1;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .nav-menu li.register a:hover {
@@ -1340,8 +1355,9 @@ body.mobile-nav-active #mobile-nav-toggle i {
 # Footer
 --------------------------------------------------------------*/
 .footer {
-  background: #000;
-  padding-top: 50px;
+  background: rgb(0, 0, 0);
+  padding-top: 10px;
+  height: 210px;
 }
 
 .footer .footer-logo .navbar-brand {
@@ -1381,16 +1397,17 @@ body.mobile-nav-active #mobile-nav-toggle i {
 
 .footer .list-menu ul li a {
   color: #fff;
-  font-size: 12px;
-  padding-left: 5px;
+  font-size: 13px;
+  padding-left: 0;
   text-decoration: none;
   letter-spacing: 0;
 }
 
 .footer .copyrights {
   background: #fff;
-  height: 30px;
-  margin-bottom: 10px;
+  height: 20px;
+  margin-bottom: 35px;
+  margin-top: 10px;
   text-align: center;
   padding: 15px;
 }
