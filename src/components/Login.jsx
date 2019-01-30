@@ -12,7 +12,7 @@ class Login extends Component {
               <a href="/register" className="signup-image-link">Create an account</a>
             </div>
             <div className="signin-form">
-              <h2 className="form-title">Sign up</h2>
+              <h2 className="form-title">Selamat datang kembali!</h2>
               <form method="POST" className="register-form" id="login-form">
                 <div className="form-group">
                   <label htmlFor="username"><i className="zmdi zmdi-account material-icons-name" /></label>
@@ -20,7 +20,7 @@ class Login extends Component {
                 </div>
                 <div className="form-group">
                   <label htmlFor="your_pass"><i className="zmdi zmdi-lock" /></label>
-                  <input type="password" name="your_pass" id="your_pass" placeholder="Password" />
+                  <input type="password" name="your_pass" id="your_pass" placeholder="Your Password" />
                 </div>
                 <div className="form-group form-button">
                   <input type="submit" name="signin" id="signin" className="form-submit" defaultValue="Log in" />
