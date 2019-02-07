@@ -1,15 +1,19 @@
 import React, {Component} from 'react';
+import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 import { onUserLogout } from '../actions/authAction';
 
+const cookies = new Cookies();
 
 class HeaderTID extends Component {
 
     onLogoutSelect = () => {
         this.props.onUserLogout();
+        cookies.remove('dataUser')
     }
+
     render(){
-        if(this.props.username === "" ) {
+        if(this.props.username === '') {
             return(
                 <header id="header" className="header header-hide">
                     <div className="container-full">
@@ -32,9 +36,8 @@ class HeaderTID extends Component {
                         </nav>
                     </div>
                 </header>
-            )
+            );
         }
-
         return (
             <header id="header" className="header header-hide">
                 <div className="container">
@@ -61,7 +64,7 @@ class HeaderTID extends Component {
                     </nav>
                 </div>
             </header>
-        )
+        );
     }
 }
 
@@ -69,4 +72,4 @@ const mapStateToProps = (state) => {
     return { username: state.auth.username}
 }
 
-export default connect(mapStateToProps, {onUserLogout })(HeaderTID);
+export default connect(mapStateToProps, {onUserLogout})(HeaderTID);

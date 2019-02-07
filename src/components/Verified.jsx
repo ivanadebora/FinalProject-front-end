@@ -16,6 +16,14 @@ class Verified extends Component {
             username, password
         })
         .then((res) => {
+            console.log(res.data)
+            const dataUser = {
+                username: res.data.username,
+                role: res.data.role,
+                status: res.data.status
+            };
+            localStorage.setItem('dataUser', dataUser);
+            this.props.onUserVerified(res.data);
             this.setState({loading:false, verified:true});
         })
         .catch((err) => {
@@ -28,7 +36,7 @@ class Verified extends Component {
             return(
                 <div>
                     <h3>Congrats you are verified!</h3>
-                    <p>Now you can use all the app features!</p>
+                    <h3>Now you can use all the app features!</h3>
                 </div>
             );
         }
@@ -51,7 +59,9 @@ class Verified extends Component {
                     <div>
                         {this.renderContent()}
                     </div>
-                    <img src="img/travel2.png" alt="Hero Imgs" width="700px" />
+                    <div>
+                        <img src="img/travel2.png" alt="Hero Imgs" width="700px" />
+                    </div>
                 </div>
             </div>
         );
