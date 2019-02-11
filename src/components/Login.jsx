@@ -77,7 +77,7 @@ class Login extends Component {
       return <Redirect to="/"/>
     }
     else if (this.props.username !== '' && this.props.status === 'Verified' && this.props.role === 'AdminProduct') {
-      return <Redirect to="/homeadminproduct"/>
+      return <Redirect to="/adminproducthome"/>
     }
   }
 }
