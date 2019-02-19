@@ -6,54 +6,51 @@ h1{
     text-align: center;
     margin-bottom: 15px;
   }
-  table{
-    width:100%;
-    /* table-layout: auto; */
-    display: block;
-    border-collapse: collapse;
-    overflow-x: scroll;
+  .table2{
+    width: 1200px;
+    table-layout: auto;
+    display: flex;
   }
   .tbl-header{
     background-color: #2abe8d;
+    
    }
   .tbl-footer{
     background-color: #fff;
    }
   .tbl-content{
-    height:300px;
+    height:400px;
     overflow-x:auto;
     margin-top: 0px;
     border: 1px solid  #2abe8d;
   }
   th{
     padding: 20px 15px;
-    text-align: left;
+    height: 50px;
+    text-align: center;
     font-weight: 500;
     font-size: 18px;
     color: #000;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
   }
   td{
-    padding: 15px;
+    padding: 20px 15px;
     height: 50px;
-    text-align: left;
-    vertical-align:middle;
+    text-align: center;
     font-weight: 300;
     font-size: 18px;
     color: #000;
-    border-bottom: solid 1px  #2abe8d;
   }
 
 .btnTable {
   border: 1px solid #fff;
   border-radius: 10px;
   color: #fff;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
-  padding: 15px 40px;
   width: 120px;
   height: 50%;
-  text-transform: uppercase;
+  margin: auto;
   -moz-transition: all 0.5s ease-in-out 0s;
   -ms-transition: all 0.5s ease-in-out 0s;
   -o-transition: all 0.5s ease-in-out 0s;

@@ -9,7 +9,7 @@ class HeaderTID extends Component {
 
     onLogoutSelect = () => {
         this.props.onUserLogout();
-        cookies.remove('dataUser')
+        cookies.remove('dataUser');
     }
 
     render(){
@@ -55,11 +55,11 @@ class HeaderTID extends Component {
                                 </ul>
                             </li>
                             <li className="menu-has-children"><a href="#product">Halo, {this.props.username} <i className="fa fa-chevron-down"/></a>
-                                    <ul>
-                                        <li><a href="#flight">Ubah Profil</a></li>
-                                        <li onClick={this.onLogoutSelect}><a href="#flight">Keluar</a></li>
-                                    </ul>
-                                </li>
+                                <ul>
+                                    <li><a href="#flight">Ubah Profil</a></li>
+                                    <li onClick={this.onLogoutSelect}><a href="#flight">Keluar</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -69,7 +69,12 @@ class HeaderTID extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { username: state.auth.username}
+    console.log(state.auth)
+    return { 
+        username: state.auth.username,
+        role: state.auth.role,
+        status: state.auth.status
+    }
 }
 
 export default connect(mapStateToProps, {onUserLogout})(HeaderTID);

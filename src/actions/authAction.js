@@ -88,11 +88,11 @@ var loginStart = (dispatch, username, password) => {
         })
     .then((res) => {
         // console.log(res)
-        console.log(res.data[0].username)
+        console.log(res.data)
         if (res.data.length > 0) {
             dispatch({
                 type: USER_LOGIN_SUCCESS,
-                payload: {username: res.data[0].username, status: res.data[0].status, role: res.data[0].role  }
+                payload: res.data[0]
             })
         } else {
             dispatch({

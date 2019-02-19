@@ -13,8 +13,9 @@ import Login from './components/Login';
 import Verified from './components/Verified';
 import WaitingVerification from './components/WaitingVerification';
 import AdminProductHome from './components/AdminProductHome';
-import AdminProductFlightManageBrand from './components/AdminProductFlightManageBrand';
 import AdminProductFlightManage from './components/AdminProductFlightManage';
+import AdminProductFlightDashboard from './components/AdminProductFlightDashboard';
+import AdminProductFlightManageMaskapai from './components/AdminProductFlightManageMaskapai';
 
 const cookies = new Cookies();
 
@@ -42,8 +43,9 @@ class App extends Component {
             <Route path="/waitingverification" component={WaitingVerification} />
 
             <Route path="/adminproducthome" component={AdminProductHome} />
-            <Route path="/managemaskapai" component={AdminProductFlightManageBrand} />
+            <Route path="/managemaskapai" component={AdminProductFlightManageMaskapai} />
             <Route path="/manageflight" component={AdminProductFlightManage} />
+            <Route path="/flightdashboard" component={AdminProductFlightDashboard} />
           </div>
           <FooterTID/>
         </div>

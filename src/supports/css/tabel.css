@@ -1,5 +1,43 @@
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 10px;
-  }
+.tableList {
+  border-collapse: collapse;
+  overflow-x: scroll;
+}
+.theadList {
+  background-color: #2abe8d;
+  border: solid 1px lightblue;
+}
+.theadList th {
+  min-width: 180px;
+  max-width: 180px;
+  font-size: 16px;
+  font-weight: 500;
+  margin: auto;
+  text-align: center;
+  height: 45px;
+  border: solid 1px #2abe8d;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+/* .theadList, .tbodyList {
+  display: block;
+} */
+.tbodyList {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100;
+  border: solid 1px #2abe8d;
+}
+.tbody td {
+  text-overflow: ellipsis;
+  min-width: 180px;
+  max-width: 180px;
+  font-size: 14px;
+  margin: auto;
+  text-align: center;
+  height: 35px;
+  border: solid 1px #2abe8d;
+  overflow:hidden;
+}
+.container{
+width:100%;
+}
