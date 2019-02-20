@@ -5,7 +5,7 @@ class AdminProductFlightDashboard extends Component {
     render() {
         return(
             <div>
-                <div className="card bg-light" style={{ fontSize: "16px", marginTop: "50px" }}>
+                <div  style={{ fontSize: "16px", marginTop: "50px" }}>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-3">

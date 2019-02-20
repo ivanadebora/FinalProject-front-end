@@ -11,18 +11,18 @@ import {
 const items = [
   {
     src: './carousel/raja-ampat.jpg',
-    altText: 'Pesona Laut Indonesia',
-    caption: 'Raja Ampat, West Papua'
+    altText: 'Raja Ampat, West Papua',
+    caption: 'Pesona Indonesia'
   },
   {
     src: './carousel/ubud.jpg',
-    altText: 'Pesona Alam Indonesia',
-    caption: 'Tegalalang Ubud, Bali'
+    altText: 'Tegalalang Ubud, Bali',
+    caption: 'Pesona Indonesia'
   },
   {
     src: './carousel/jakarta.jpg',
-    altText: 'Pesona Kota Indonesia',
-    caption: 'Capital City of Indonesia, Jakarta'
+    altText: 'Capital City of Indonesia, Jakarta',
+    caption: 'Pesona Indonesia'
   }
 ];
 

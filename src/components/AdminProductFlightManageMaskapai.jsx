@@ -108,9 +108,9 @@ class AdminProductFlightManageMaskapai extends Component {
       if(item.id === this.state.idSelectedtoEdit) { 
         return (
             <tr>
-                <td></td>
-                <td><input type="text" ref="maskapaiEdit" defaultValue={item.nama} /></td>
-                <td><input type="file" id="EditFlightImage" name="EditFlightImage" label={this.state.EditFlightImage} onChange={this.onEditFileImageChange} /></td>
+                <td style={{paddingLeft:"20px"}}></td>
+                <td><input type="text" ref="maskapaiEdit" defaultValue={item.nama} style={{width: '200px', fontSize: '16px', paddingLeft:"30px"}}/></td>
+                <td><input type="file" id="EditFlightImage" name="EditFlightImage" label={this.state.EditFlightImage} onChange={this.onEditFileImageChange} style={{marginLeft: '20px', width: '80%'}}/></td>
                 <td><input type="button" class="btnTable btn-primary" value="Cancel" onClick={() => this.setState({ idSelectedtoEdit: 0 })} /></td>
                 <td><input type="button" class="btnTable btn-success" value="Update" onClick={() => this.onBtnUpdateClick(item.id)} /></td>
             </tr>
@@ -118,11 +118,11 @@ class AdminProductFlightManageMaskapai extends Component {
       }
       return (
         <tr>
-            <td>{item.id}</td>
-            <td>{item.nama}</td>
-            <td><img src={`http://localhost:1212${item.image}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
-            <td><input type="button" class="btnTable btn-warning" value="Edit" onClick={() => this.setState({idSelectedtoEdit:item.id})} /></td>
-            <td><input type="button" class="btnTable btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(item.id)} /></td>
+            <td style={{paddingLeft:"10px"}}>{item.id}</td>
+            <td style={{paddingLeft:"20px"}}>{item.nama}</td>
+            <td style={{paddingLeft:"60px"}}><img src={`http://localhost:1212${item.image}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
+            <td style={{paddingLeft:"50px"}}><input type="button" class="btnTable btn-warning" value="Edit" onClick={() => this.setState({idSelectedtoEdit:item.id})} style={{paddingBottom:"20px"}}/></td>
+            <td style={{paddingLeft:"20px"}}><input type="button" class="btnTable btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(item.id)} style={{paddingBottom:"20px"}}/></td>
         </tr>
       )
     })
@@ -133,26 +133,22 @@ class AdminProductFlightManageMaskapai extends Component {
   render() {
       return (
         <div id="hero" className="wow fadeIn">
-          <div className="hero-container">
             <div className="container">
-              <div className="card bg-light" style={{ marginLeft: "-10px",fontSize: "16px" }}>
+              <div style={{ marginLeft: "-10px",fontSize: "16px" }}>
                 <style>{"tr{border-top: hidden;}"}</style>
                   <div className="row">
-                    <div className="col-lg-2" style={{ marginTop: "0px", marginLeft:"-30px"}}>
+                    <div className="col-lg-2">
                       <AdminProductFlightDashboard/>
                     </div>
-                    <div className="card bg-light col-lg-8" style={{ paddingLeft:"100px", width: "80%" }}>
-                      <div className="table-responsive card shadow p-3 mb-5 bg-white rounded">
+                    <div className="col-lg-10" style={{ paddingLeft:"100px", width: "100%" }}>
                         <section>
-                          <div className="tbl-header" style={{paddingLeft: '6px'}}>
+                          <div className="tbl-header" style={{height:"40px"}}>
                             <table className= "tabel2" cellPadding={10} cellSpacing={10} border={0}>
                               <thead>
                                 <tr>
-                                  <th>ID</th>
-                                  <th>Nama Maskapai</th>
-                                  <th></th>
-                                  <th></th>
-                                  <th></th>
+                                  <th style={{paddingLeft:'10px', color:"#fff"}}>ID</th>
+                                  <th style={{paddingLeft:'20px', color: "#fff"}}>Nama Maskapai</th>
+                                  <th style={{paddingLeft:'100px', color:"#fff"}}>Logo</th>
                                 </tr>
                               </thead>
                             </table>
@@ -164,15 +160,15 @@ class AdminProductFlightManageMaskapai extends Component {
                               </tbody>
                             </table>
                           </div>
-                          <div className="tbl-header" style={{paddingRight: '6px'}}>
+                          <div className="tbl-header" style={{paddingRight: '6px', backgroundColor:"#bed1cc"}}>
                             <table className= "tabel2" cellPadding={10} cellSpacing={10} border={0}>
                               <tfoot>
                                 <tr>
-                                  <td></td>
-                                  <td><input type="text" ref="maskapaiAdd" placeholder="Nama Maskapai" style={{marginLeft: '80px', width: '200px', fontSize: '16px'}}/></td>
+                                  <td style={{paddingLeft:"20px"}}></td>
+                                  <td><input type="text" ref="maskapaiAdd" placeholder="Nama Maskapai" style={{width: '200px', fontSize: '16px', paddingLeft:"30px"}}/></td>
                                   <td><input type="file" id="AddFlightImage" name="AddFlightImage" label={this.state.AddFlightImage} onChange={this.onAddFileImageChange} style={{marginLeft: '20px', width: '80%'}}/></td>
                                   <td></td>
-                                  <td><input type="button" class="btnTable btn-primary" value="Add" onClick={this.onBtnAddClick} /></td>
+                                  <td><input type="button" class="btnTable btn-primary" value="Add" onClick={this.onBtnAddClick} style={{paddingBottom:"20px"}} /></td>
                                 </tr>
                               </tfoot>
                             </table>
@@ -183,8 +179,6 @@ class AdminProductFlightManageMaskapai extends Component {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
       );
     }
 }

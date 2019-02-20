@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import '../supports/css/tabel.css';
+import { rupiahConverter } from '../actions'
 import AdminProductFlightDashboard from './AdminProductFlightDashboard';
 
 
@@ -137,13 +140,13 @@ class AdminProductFlightManage extends Component {
             <td>{nama}</td>
             <td>{departure_city}</td>
             <td>{arrival_city}</td>
-            <td>{tanggal}</td>
+            <td>{moment(tanggal).format("DD MMMM YYYY")}</td>
             <td>{departure_time}</td>
             <td>{arrival_time}</td>
             <td>{departure_terminal}</td>
             <td>{arrival_terminal}</td>
             <td>{seat_class}</td>
-            <td>{harga}</td>
+            <td>{this.props.rupiahConverter(harga)}</td>
             <td>{jumlah_seat}</td>
             <td><input type="button" class="btnTable btn-warning" value="Edit" onClick={() => this.setState({idSelectedtoEdit:id})} /></td>
             <td><input type="button" class="btnTable btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(id)} /></td>
@@ -156,16 +159,14 @@ class AdminProductFlightManage extends Component {
   render() {
       return (
         <div id="hero" className="wow fadeIn">
-          <div className="hero-container">
             <div className="container">
-              <div className="card bg-light" style={{ marginTop: "20px",fontSize: "16px"}}>
-                <style>{"tr{border-top: hidden;}"}</style>
+              <div style={{ marginTop: "40px",fontSize: "16px"}}>
+                <style>{"tr{border: hidden;}"}</style>
                   <div className="row">
                     <div className="col-lg-2" style={{ marginTop: "-50px", marginLeft:"-30px"}}>
                       <AdminProductFlightDashboard/>
                     </div>
-                    <div className="card bg-light col-lg-8" style={{ paddingLeft:"120px", width: "80%" }}>
-                      <div className="table-responsive card shadow p-3 mb-5 bg-white rounded">
+                    <div className="col-lg-10" style={{ paddingLeft:"120px", width: "500px" }}>
                         <table className="table-responsive">
                           <thead className="theadList">
                             <tr>
@@ -192,18 +193,18 @@ class AdminProductFlightManage extends Component {
                           <thead className="theadList" style={{backgroundColor: '#bed1cc'}}>
                             <tr>
                               <td></td>
-                              <td><input type="text" ref="codeAdd" placeholder="Kode Penerbangan" style={{ fontSize: '12px', width:'90%', textAlign: "justify" }}/></td>
+                              <td><input type="text" ref="codeAdd" placeholder="Kode Penerbangan" style={{ fontSize: '12px', width:'90%', paddingLeft:"15px" }}/></td>
                               <td><select className="custom-select" id="inputGroupSelect01" ref="maskapaiAdd" style={{ fontSize: '15px', width: '90%', height: '60%'}}>{this.renderMaskapai()}</select></td>
-                              <td><input type="text" ref="depCityAdd" placeholder="Kota Asal" style={{ fontSize: '12px', width:'90%', textAlign: "justify"}} /></td>
-                              <td><input type="text" ref="arrCityAdd" placeholder="Kota Tujuan" style={{ fontSize: '12px', width:'90%', textAlign: "justify" }} /></td>
+                              <td><input type="text" ref="depCityAdd" placeholder="Kota Asal" style={{ fontSize: '12px', width:'90%', textAlign: "center"}} /></td>
+                              <td><input type="text" ref="arrCityAdd" placeholder="Kota Tujuan" style={{ fontSize: '12px', width:'90%', textAlign: "center" }} /></td>
                               <td><input type="date" ref="dateAdd" id="date" style={{ fontSize: '12px', width:'90%', textAlign: "justify" }}/></td>
-                              <td><input type="time" min="00:00:00" max="23:59:00" name="depTimeAdd" ref="depTimeAdd" style={{ fontSize: '12px', width:'90%', textAlign: "justify" }} /></td>
-                              <td><input type="time" min="00:00:00" max="23:59:00" name="arrTimeAdd" ref="arrTimeAdd" style={{ fontSize: '12px', width:'90%', textAlign: "justify" }} /></td>
-                              <td><input type="text"  ref="depTerminalAdd" placeholder="Terminal Keberangkatan" style={{ fontSize: '12px', width:'80%', textAlign: "justify"}} /></td>
-                              <td><input type="text" ref="arrTerminalAdd" placeholder="Terminal Kedatangan" style={{ fontSize: '12px', width:'80%', textAlign: "justify"}} /></td>
-                              <td><input type="text" ref="classAdd" placeholder="Kelas" style={{ fontSize: '12px', width:'80%', textAlign: "justify"}} /></td>
-                              <td><input type="number" ref="hargaAdd" placeholder="Harga/pax" style={{ fontSize: '12px', width:'80%', textAlign: "justify"}} /></td>
-                              <td><input type="number" ref="seatAdd" placeholder="Jumlah Seat" style={{ fontSize: '12px', width:'80%', textAlign: "justify"}} /></td>
+                              <td><input type="time" min="00:00:00" max="23:59:00" name="depTimeAdd" ref="depTimeAdd" style={{ fontSize: '12px', width:'90%', textAlign: "center" }} /></td>
+                              <td><input type="time" min="00:00:00" max="23:59:00" name="arrTimeAdd" ref="arrTimeAdd" style={{ fontSize: '12px', width:'90%', textAlign: "center" }} /></td>
+                              <td><input type="text"  ref="depTerminalAdd" placeholder="Terminal" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
+                              <td><input type="text" ref="arrTerminalAdd" placeholder="Terminal" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
+                              <td><input type="text" ref="classAdd" placeholder="Kelas" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
+                              <td><input type="number" ref="hargaAdd" placeholder="Harga/pax" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
+                              <td><input type="number" ref="seatAdd" placeholder="Jumlah Seat" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
                               <td></td>
                               <td><input type="button" class="btnTable btn-primary" value="Add" onClick={this.onBtnAddClick} /></td>
                             </tr>
@@ -214,11 +215,9 @@ class AdminProductFlightManage extends Component {
                   </div>
                 </div>
               </div> 
-            </div>
-          </div>
       );
     }
 }
 
 
-export default (AdminProductFlightManage);
+export default connect(null, {rupiahConverter})(AdminProductFlightManage);

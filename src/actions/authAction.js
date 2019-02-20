@@ -119,7 +119,10 @@ export const keepLogin = (username) => {
             if (res.data.length > 0) {
                 dispatch ({
                     type: USER_LOGIN_SUCCESS,
-                    payload: {username: res.data[0].username, status: res.data[0].status, role: res.data[0].role }
+                    payload: {
+                        username: res.data[0].username, 
+                        status: res.data[0].status, 
+                        role: res.data[0].role }
                 })
             }
         })

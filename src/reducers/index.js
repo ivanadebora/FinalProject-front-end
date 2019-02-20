@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
+import searchListReducer from './searchListReducer'
 
 
 export default combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    searchList: searchListReducer
 });

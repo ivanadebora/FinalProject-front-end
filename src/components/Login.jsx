@@ -27,14 +27,14 @@ class Login extends Component {
   }
 
   renderButton = () => {
-    if (this.props.loading) {
-        return <div><i className="fa fa-spinner fa-spin" style={{ fontSize: '54px' }} /></div>
+    if (this.props.loading === true) {
+        return (<div><i className="fa fa-spinner fa-spin" style={{ fontSize: '54px' }} /></div>)
     }
     return (
       <div className="form-group">
           <input type="button" name="submit" id="submit" className="form-submit" defaultValue="Masuk" onClick ={this.onBtnLoginClick}/>
       </div>
-    )
+    );
   } 
   
   render(){
@@ -83,6 +83,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.auth)
   return {
       username: state.auth.username,
       status: state.auth.status,

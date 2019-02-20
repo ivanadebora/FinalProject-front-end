@@ -8,7 +8,7 @@ import {
 
 
 
-const INITIAL_STATE = {username: '', email: '', role: '', status: '', error: '', loading: false, cookie: false};
+const INITIAL_STATE = {username: '', role: '', status: '', error: '', loading: false, cookie: false};
 
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
         case AUTH_SYSTEM_ERROR :
             return {...state, error: action.payload, cookie: true}
         case AUTH_LOADING :
-            return {...state, loading: true, cookie: true}
+            return {...INITIAL_STATE, loading: true, cookie: true}
         case LOGOUT :
             return {...INITIAL_STATE, cookie: true}
         case COOKIE_CHECKED :

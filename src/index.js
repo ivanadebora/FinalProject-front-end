@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './supports/css/bootstrap.min.css';
 import './supports/css/style.css';
 import './supports/form-regis/css/style1.css'
