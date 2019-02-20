@@ -13,7 +13,7 @@ class Homepage extends Component {
                     <img src="img/travel.png" alt="Hero Imgs"/>
                     <div className="btns">
                         <a href="#hotel"><i className="fa fa-building fa-2x" /> Hotel</a>
-                        <a href="#flight"><i className="fa fa-plane fa-2x" /> Penerbangan</a>
+                        <a href="/flighthome"><i className="fa fa-plane fa-2x" /> Penerbangan</a>
                         <a href="#ticket"><i className="fa fa-ticket fa-2x" /> Aktivitas</a>
                     </div>
                 </div>  

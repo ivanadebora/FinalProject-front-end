@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import '../supports/css/tabel.css';
 import AdminProductFlightDashboard from './AdminProductFlightDashboard';
 
@@ -156,7 +154,6 @@ class AdminProductFlightManage extends Component {
   }
 
   render() {
-    if(this.props.username !== '') {
       return (
         <div id="hero" className="wow fadeIn">
           <div className="hero-container">
@@ -221,14 +218,7 @@ class AdminProductFlightManage extends Component {
           </div>
       );
     }
-    return <Redirect to="/login" />
-  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-      username: state.auth.username};
-  }
 
-
-export default connect(mapStateToProps)(AdminProductFlightManage);
+export default (AdminProductFlightManage);

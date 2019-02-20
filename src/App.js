@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { keepLogin, cookieChecked } from './actions/authAction';
+import { keepLogin, cookieChecked } from './actions';
 import HeaderTID from './components/HeaderTID';
 import Homepage from './components/Homepage';
 import FooterTID from './components/FooterTID';
@@ -16,6 +16,8 @@ import AdminProductHome from './components/AdminProductHome';
 import AdminProductFlightManage from './components/AdminProductFlightManage';
 import AdminProductFlightDashboard from './components/AdminProductFlightDashboard';
 import AdminProductFlightManageMaskapai from './components/AdminProductFlightManageMaskapai';
+import ProductFlightHome from './components/ProductFlightHome';
+
 
 const cookies = new Cookies();
 
@@ -24,7 +26,7 @@ class App extends Component {
   componentDidMount() {
     const username = cookies.get('dataUser');
     if (username !== undefined) {
-        this.props.keepLogin(username)
+        this.props.keepLogin(username);
     }
     else {
       this.props.cookieChecked();
@@ -46,6 +48,8 @@ class App extends Component {
             <Route path="/managemaskapai" component={AdminProductFlightManageMaskapai} />
             <Route path="/manageflight" component={AdminProductFlightManage} />
             <Route path="/flightdashboard" component={AdminProductFlightDashboard} />
+
+            <Route path="/flighthome" component={ProductFlightHome} />
           </div>
           <FooterTID/>
         </div>
@@ -54,7 +58,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {cookie: state.auth.cookie}
+  return {
+    cookie: state.auth.cookie
+  }
 }
 
 export default withRouter(connect(mapStateToProps,{keepLogin, cookieChecked})(App));

@@ -10,7 +10,7 @@ class Login extends Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.username !== '') {
-        cookies.set('dataUser', newProps.username, {path: '/'})
+        cookies.set('dataUser', newProps.username, {path: '/'});
     }
   }
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 import { onUserLogout } from '../actions/authAction';
+import { keepLogin } from '../actions';
 
 const cookies = new Cookies();
 
@@ -25,8 +26,8 @@ class HeaderTID extends Component {
                                 <li className="font1"><a href="#hero">Pesanan Saya</a></li>
                                 <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
                                     <ul>
-                                        <li><a href="#flight">Hotel</a></li>
-                                        <li><a href="#hotel">Penerbangan</a></li>
+                                        <li><a href="#hotel">Hotel</a></li>
+                                        <li><a href="/flighthome">Penerbangan</a></li>
                                         <li><a href="#entertainment">Aktivitas</a></li>
                                     </ul>
                                 </li>
@@ -38,43 +39,41 @@ class HeaderTID extends Component {
                 </header>
             );
         }
-        return (
-            <header id="header" className="header header-hide">
-                <div className="container">
-                    <div id="logo" className="pull-left">
-                        <a href="/"><img src="img/travelID.png" alt="logoTID" width="150px"/></a>
+            return (
+                <header id="header" className="header header-hide">
+                    <div className="container">
+                        <div id="logo" className="pull-left">
+                            <a href="/"><img src="img/travelID.png" alt="logoTID" width="150px"/></a>
+                        </div>
+                        <nav id="nav-menu-container">
+                            <ul className="nav-menu">
+                                <li className="font1"><a href="#hero">Pesanan Saya</a></li>
+                                <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><a href="#flight">Hotel</a></li>
+                                        <li><a href="/flighthome">Penerbangan</a></li>
+                                        <li><a href="#entertainment">Aktivitas</a></li>
+                                    </ul>
+                                </li>
+                                <li className="menu-has-children"><a href="#product">Halo, {this.props.username} <i className="fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><a href="#flight">Ubah Profil</a></li>
+                                        <li onClick={this.onLogoutSelect}><a href="#flight">Keluar</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <nav id="nav-menu-container">
-                        <ul className="nav-menu">
-                            <li className="font1"><a href="#hero">Pesanan Saya</a></li>
-                            <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
-                                <ul>
-                                    <li><a href="#flight">Hotel</a></li>
-                                    <li><a href="#hotel">Penerbangan</a></li>
-                                    <li><a href="#entertainment">Aktivitas</a></li>
-                                </ul>
-                            </li>
-                            <li className="menu-has-children"><a href="#product">Halo, {this.props.username} <i className="fa fa-chevron-down"/></a>
-                                <ul>
-                                    <li><a href="#flight">Ubah Profil</a></li>
-                                    <li onClick={this.onLogoutSelect}><a href="#flight">Keluar</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-        );
+                </header>
+            );
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.auth)
+    console.log(state.auth.role)
     return { 
-        username: state.auth.username,
-        role: state.auth.role,
-        status: state.auth.status
+        username: state.auth.username
     }
 }
 
-export default connect(mapStateToProps, {onUserLogout})(HeaderTID);
+export default connect(mapStateToProps, {onUserLogout, keepLogin })(HeaderTID);
