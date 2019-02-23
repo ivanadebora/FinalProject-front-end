@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import '../supports/css/tablelist.css';
 import AdminProductFlightDashboard from './AdminProductFlightDashboard';
 
@@ -131,28 +133,29 @@ class AdminProductFlightManageMaskapai extends Component {
 
 
   render() {
+    if(this.props.role === 'AdminProduct') {
       return (
         <div id="hero" className="wow fadeIn">
-            <div className="container">
-              <div style={{ marginLeft: "-10px",fontSize: "16px" }}>
-                <style>{"tr{border-top: hidden;}"}</style>
-                  <div className="row">
-                    <div className="col-lg-2">
-                      <AdminProductFlightDashboard/>
-                    </div>
-                    <div className="col-lg-10" style={{ paddingLeft:"100px", width: "100%" }}>
-                        <section>
-                          <div className="tbl-header" style={{height:"40px"}}>
-                            <table className= "tabel2" cellPadding={10} cellSpacing={10} border={0}>
-                              <thead>
-                                <tr>
-                                  <th style={{paddingLeft:'10px', color:"#fff"}}>ID</th>
-                                  <th style={{paddingLeft:'20px', color: "#fff"}}>Nama Maskapai</th>
-                                  <th style={{paddingLeft:'100px', color:"#fff"}}>Logo</th>
-                                </tr>
-                              </thead>
-                            </table>
-                          </div>
+          <div className="container">
+            <div style={{ marginLeft: "-10px",fontSize: "16px" }}>
+              <style>{"tr{border-top: hidden;}"}</style>
+                <div className="row">
+                  <div className="col-lg-2">
+                    <AdminProductFlightDashboard/>
+                  </div>
+                  <div className="col-lg-10" style={{ marginTop: "50px", paddingLeft:"120px", width: "100%" }}>
+                    <section>
+                      <div className="tbl-header" style={{height:"40px"}}>
+                        <table className= "tabel2" cellPadding={10} cellSpacing={10} border={0}>
+                          <thead>
+                            <tr>
+                              <th style={{paddingLeft:'10px', color:"#fff"}}>ID</th>
+                              <th style={{paddingLeft:'20px', color: "#fff"}}>Nama Maskapai</th>
+                              <th style={{paddingLeft:'100px', color:"#fff"}}>Logo</th>
+                            </tr>
+                          </thead>
+                        </table>
+                        </div>
                           <div className="tbl-content" style={{paddingRight: '6px'}}>
                             <table className= "tabel2" cellPadding={10} cellSpacing={10} border={0}>
                               <tbody>
@@ -181,7 +184,15 @@ class AdminProductFlightManageMaskapai extends Component {
               </div>
       );
     }
+      return <Redirect to="/" />
+    }
 }
 
+const mapStateToProps = (state) => {
+  console.log(state.auth.role)
+  return {
+      role: state.auth.role
+  };
+}
 
-export default (AdminProductFlightManageMaskapai);
+export default connect(mapStateToProps)(AdminProductFlightManageMaskapai);

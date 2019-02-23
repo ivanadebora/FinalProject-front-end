@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import '../supports/css/tabel.css';
 import { rupiahConverter } from '../actions'
@@ -41,10 +42,11 @@ class AdminProductFlightManage extends Component {
       var seat_class = this.refs.classAdd.value;
       var harga = this.refs.hargaAdd.value;
       var jumlah_seat = this.refs.seatAdd.value;
+      var description = this.refs.descAdd.value;
 
       axios.post('http://localhost:1212/flight/addproduct', {
         code, nama, departure_city, arrival_city, tanggal, departure_time, arrival_time,
-        departure_terminal, arrival_terminal, seat_class, harga, jumlah_seat 
+        departure_terminal, arrival_terminal, seat_class, harga, jumlah_seat, description 
       })
       .then((res) => {
         alert("Berhasil menambahkan satu data maskapai!")
@@ -82,10 +84,11 @@ class AdminProductFlightManage extends Component {
       var seat_class = this.refs.classEdit.value;
       var harga = this.refs.hargaEdit.value;
       var jumlah_seat = this.refs.seatEdit.value;
+      var description = this.refs.descEdit.value;
 
     axios.post('http://localhost:1212/flight/editproduct/'+id, {
         code, nama, departure_city, arrival_city, tanggal, departure_time, arrival_time,
-        departure_terminal, arrival_terminal, seat_class, harga, jumlah_seat 
+        departure_terminal, arrival_terminal, seat_class, harga, jumlah_seat, description 
     })
     .then((res) => {
         console.log(res)
@@ -110,7 +113,7 @@ class AdminProductFlightManage extends Component {
   renderProductList = () => {
     var listJSX = this.state.listProductFlight.map(({
       id, code, nama, departure_city, arrival_city, tanggal, departure_time, arrival_time,
-      departure_terminal, arrival_terminal, seat_class, harga, jumlah_seat 
+      departure_terminal, arrival_terminal, seat_class, harga, jumlah_seat, description 
     }) => {
       if(id === this.state.idSelectedtoEdit) { 
         return (
@@ -120,7 +123,7 @@ class AdminProductFlightManage extends Component {
                 <td><select className="custom-select" id="inputGroupSelect01" ref="maskapaiEdit" defaultValue={nama} style={{ fontSize: '15px', width: '90%', height: '60%'}}>{this.renderMaskapai()}</select></td>
                 <td><input type="text" ref="depCityEdit" placeholder="Kota Asal" defaultValue={departure_city} style={{ fontSize: '12px', width:'90%', textAlign: "justify"}} /></td>
                 <td><input type="text" ref="arrCityEdit" placeholder="Kota Tujuan" defaultValue={arrival_city} style={{ fontSize: '12px', width:'90%', textAlign: "justify" }} /></td>
-                <td><input type="date" ref="dateEdit" required defaultValue={tanggal} style={{ fontSize: '12px', width:'90%', textAlign: "justify" }}/></td>
+                <td><input type="date" ref="dateEdit" defaultValue={tanggal} style={{ fontSize: '12px', width:'90%', textAlign: "justify" }}/></td>
                 <td><input type="time" name="depTimeEdit" ref="depTimeEdit" defaultValue={departure_time} style={{ fontSize: '12px', width:'90%', textAlign: "justify" }} /></td>
                 <td><input type="time" name="arrTimeEdit" ref="arrTimeEdit" defaultValue={arrival_time} style={{ fontSize: '12px', width:'90%', textAlign: "justify" }} /></td>
                 <td><input type="text" ref="depTerminalEdit" placeholder="Terminal Keberangkatan"  defaultValue={departure_terminal} style={{ fontSize: '12px', width:'90%', textAlign: "justify"}} /></td>
@@ -128,6 +131,7 @@ class AdminProductFlightManage extends Component {
                 <td><input type="text" ref="classEdit" placeholder="Kelas" defaultValue={seat_class} style={{ fontSize: '12px', width:'90%', textAlign: "justify"}} /></td>
                 <td><input type="number" ref="hargaEdit" placeholder="Harga/pax" defaultValue={harga} style={{ fontSize: '12px', width:'90%', textAlign: "justify"}} /></td>
                 <td><input type="number" ref="seatEdit" placeholder="Jumlah Seat" defaultValue={jumlah_seat} style={{ fontSize: '12px', width:'90%', textAlign: "justify"}} /></td>
+                <td><input type="textarea" ref="descEdit" placeholder="Deskripsi" defaultValue={description} style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
                 <td><input type="button" class="btnTable btn-primary" value="Cancel" onClick={() => this.setState({ idSelectedtoEdit: 0 })} /></td>
                 <td><input type="button" class="btnTable btn-success" value="Update" onClick={() => this.onBtnUpdateClick(id)} /></td>
             </tr>
@@ -148,6 +152,7 @@ class AdminProductFlightManage extends Component {
             <td>{seat_class}</td>
             <td>{this.props.rupiahConverter(harga)}</td>
             <td>{jumlah_seat}</td>
+            <td>{description}</td>
             <td><input type="button" class="btnTable btn-warning" value="Edit" onClick={() => this.setState({idSelectedtoEdit:id})} /></td>
             <td><input type="button" class="btnTable btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(id)} /></td>
         </tr>
@@ -157,6 +162,7 @@ class AdminProductFlightManage extends Component {
   }
 
   render() {
+    if(this.props.role === 'AdminProduct'){
       return (
         <div id="hero" className="wow fadeIn">
             <div className="container">
@@ -183,6 +189,7 @@ class AdminProductFlightManage extends Component {
                               <th>Kelas</th>
                               <th>Harga</th>
                               <th>Jumlah Seat</th>
+                              <th>Deskripsi</th>
                               <th></th>
                               <th></th>
                             </tr>
@@ -205,6 +212,7 @@ class AdminProductFlightManage extends Component {
                               <td><input type="text" ref="classAdd" placeholder="Kelas" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
                               <td><input type="number" ref="hargaAdd" placeholder="Harga/pax" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
                               <td><input type="number" ref="seatAdd" placeholder="Jumlah Seat" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
+                              <td><input type="textarea" ref="descAdd" placeholder="Deskripsi" style={{ fontSize: '12px', width:'80%', textAlign: "center"}} /></td>
                               <td></td>
                               <td><input type="button" class="btnTable btn-primary" value="Add" onClick={this.onBtnAddClick} /></td>
                             </tr>
@@ -217,7 +225,16 @@ class AdminProductFlightManage extends Component {
               </div> 
       );
     }
+      return <Redirect to="/" />
+    }
+}
+
+const mapStateToProps = (state) => {
+  console.log(state.auth.role)
+  return {
+      role: state.auth.role
+  };
 }
 
 
-export default connect(null, {rupiahConverter})(AdminProductFlightManage);
+export default connect(mapStateToProps, {rupiahConverter})(AdminProductFlightManage);

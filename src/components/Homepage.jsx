@@ -61,9 +61,9 @@ class Homepage extends Component {
                     </div>
                 </div>
                 <div className="overlay">
-                    <div className="container-fluid container-full">
-                        <div className="row">
-                            <video width={1024} height={576} controls>
+                    <div className="container">
+                        <div className="row" style={{marginLeft:"50px"}}>
+                            <video width={1024} height={576} autoPlay>
                                 <source src="video/videoplayback.mp4" type="video/mp4" />
                             </video>
                         </div>

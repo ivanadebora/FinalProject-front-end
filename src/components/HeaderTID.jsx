@@ -24,6 +24,10 @@ class HeaderTID extends Component {
                         <nav id="nav-menu-container">
                             <ul className="nav-menu">
                                 <li className="font1"><a href="#hero">Pesanan Saya</a></li>
+                                    <ul>
+                                        <li><a href="#hotel">Keranjang Belanja</a></li>
+                                        <li><a href="/flighthome">Tiket Saya</a></li>
+                                    </ul>
                                 <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
                                     <ul>
                                         <li><a href="#hotel">Hotel</a></li>
@@ -70,7 +74,7 @@ class HeaderTID extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.auth.role)
+    
     return { 
         username: state.auth.username
     }

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
     TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col
 } from 'reactstrap';
@@ -26,6 +28,7 @@ class AdminProductHome extends Component {
 
 
     render(){
+      if(this.props.role === "AdminProduct") {
         return(
           <div id="hero" className="wow fadeIn">
               <div className="container">
@@ -95,7 +98,16 @@ class AdminProductHome extends Component {
           </div>
       )
       }
+        return <Redirect to ="/" />
+      }
+}
+
+const mapStateToProps = (state) => {
+  console.log(state.auth.role)
+  return {
+      role: state.auth.role
+  };
 }
 
 
-export default (AdminProductHome);
+export default connect(mapStateToProps)(AdminProductHome);

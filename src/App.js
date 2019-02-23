@@ -18,6 +18,8 @@ import AdminProductFlightDashboard from './components/AdminProductFlightDashboar
 import AdminProductFlightManageMaskapai from './components/AdminProductFlightManageMaskapai';
 import ProductFlightHome from './components/ProductFlightHome';
 import ProductFlightList from './components/ProductFlightList';
+import ProductFlightDetail from './components/ProductFlightDetail';
+
 
 
 const cookies = new Cookies();
@@ -52,6 +54,7 @@ class App extends Component {
 
             <Route path="/flighthome" component={ProductFlightHome} />
             <Route path="/flightlist" component={ProductFlightList} />
+            <Route path="/flightdetail" component={ProductFlightDetail} />
           </div>
           <FooterTID/>
         </div>
