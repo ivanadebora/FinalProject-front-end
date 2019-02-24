@@ -8,13 +8,13 @@ import {
 
 
 
-const INITIAL_STATE = {username: '', role: '', status: '', error: '', loading: false, cookie: false};
+const INITIAL_STATE = {username: '', role: '', email: '', status: '', error: '', loading: false, cookie: false};
 
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case USER_LOGIN_SUCCESS :
-            return {...INITIAL_STATE, ...action.payload, cookie: true}
+            return {...INITIAL_STATE, ...action.payload, email: action.payload.email, cookie: true}
         case AUTH_SYSTEM_ERROR :
             return {...state, error: action.payload, cookie: true}
         case AUTH_LOADING :

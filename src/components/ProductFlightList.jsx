@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import '../supports/filter/reset.css';
@@ -10,10 +9,11 @@ import {
     FormGroup, Input,
     Button, Row
 } from 'reactstrap';
-import { select_flight } from '../actions/'
+import { select_flight  } from '../actions/'
 
 
 
+const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
 
 class ProductFlightList extends Component {
 
@@ -21,17 +21,19 @@ class ProductFlightList extends Component {
 
     componentDidMount() {
         this.getListMaskapai();
-        console.log(this.props.departure_city)
-        console.log(this.props.arrival_city)
-        console.log(this.props.tanggal)
-        console.log(this.props.seat_class)
-        var departure_city = this.props.departure_city;
-        var arrival_city = this.props.arrival_city;
-        var tanggal = this.props.tanggal;
-        var seat_class = this.props.seat_class;
+        console.log(this.props.product.departure_city)
+        console.log(this.props.product.arrival_city)
+        console.log(this.props.product.tanggal)
+        console.log(this.props.product.seat_class)
+        console.log(this.props.product.qty)
+        var departure_city = this.props.product.departure_city ;
+        var arrival_city = this.props.product.arrival_city ;
+        var tanggal = this.props.product.tanggal ;
+        var seat_class = this.props.product.seat_class;
+        var qty = this.props.product.qty;
 
-        axios.post('http://localhost:1212/flight/listsearch2', {
-                departure_city, arrival_city, tanggal, seat_class
+        axios.post('http://localhost:1212/flight/listsearch', {
+                departure_city, arrival_city, tanggal, seat_class, qty
             })
             .then((res) => {
                 console.log(res.data)
@@ -58,11 +60,16 @@ class ProductFlightList extends Component {
         })
         this.setState({searchListFlight: arrSearch})
     }
+
+    onPesanClick = (id) =>{
+        this.setState({idSelectedItem:id})
+         this.props.select_flight({id})
+    }
     
-    onLihatClick = (idNya) => {
-        this.setState({idSelectedItem:idNya})
-        console.log(idNya)
-        this.props.select_flight(idNya)
+    onLihatClick = (id) => {
+        this.setState({idSelectedItem:id})
+        console.log(id)
+        this.props.select_flight({id})
     }
 
     renderMaskapai = () => {
@@ -85,9 +92,9 @@ class ProductFlightList extends Component {
                     <td>{item.departure_time}</td>
                     <td>{item.arrival_city}</td>
                     <td>{item.arrival_time}</td>
-                    <td>{item.harga}</td>
-                    <td><input type="button" className="btnTable btn-warning" value="Pesan" style={{paddingBottom:"20px"}} /></td>
-                    <td><a href={`/flightdetail?productId=${this.props.product}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a></td>
+                    <td>{rupiah.format(item.harga)}</td>
+                    <td><a href={`/flightdetailpesanan?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onPesanClick(item.id)}>Pesan</a></td>
+                    <td><a href={`/flightdetail?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a></td>
                 </tr>
             )
         })
@@ -96,9 +103,6 @@ class ProductFlightList extends Component {
 
     render(){
         if(this.props.username !== '') {
-            // if(this.props.productId !== 0) {
-            //     return <Redirect to={`/flightdetail/${this.props.productId}`} />
-            // }
         return(
             <div id="hero" className="wow fadeIn">
             <div className="hero-container" >
@@ -166,9 +170,7 @@ class ProductFlightList extends Component {
 const mapStateToProps = (state) => {
     console.log(state.searchList)
     console.log(state.selectedFlight)
-    const { departure_city, arrival_city, seat_class } = state.searchList[0]
-    return { departure_city, arrival_city, seat_class,
-        tanggal: moment(state.searchList[0].tanggal).format('YYYY-MM-DD'),
+    return { 
         username: state.auth.username,
         product: state.selectedFlight
     }

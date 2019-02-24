@@ -20,42 +20,29 @@ export const onUserSearchFlight = ({
         departure_city, arrival_city, tanggal, qty, seat_class, username
     }) => {
         return (dispatch) => {
-            axios.post('http://localhost:1212/flight/isicart1',{
-                tanggal, qty, seat_class, username
+            axios.post('http://localhost:1212/flight/listsearch', {
+                departure_city, arrival_city, tanggal, qty, seat_class, username
             })
             .then((res) => {
                 console.log(res.data)
-                axios.post('http://localhost:1212/flight/listsearch', {
-                    departure_city, arrival_city, tanggal, qty, seat_class, username
-                })
-                .then((res) => {
-                    console.log(res.data)
-                    if (res.data.length > 0) {
-                        dispatch({
-                            type: GET_FLIGHT_LIST_SUCCESS,
-                            payload: res.data
-                        })
-                    }
-                    else if (res.data.length === 0) {
-                        dispatch({
-                            type: GET_FLIGHT_LIST_FAIL,
-                            payload: 'Data cannot be found!'
-                        })
-                    }
-                    else {
-                        dispatch({
-                            type: GET_FLIGHT_LIST_FAIL,
-                            payload: 'Oops, sorry! An error occured. Please try Again!'
-                        })
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
+                if (res.data.length > 0) {
                     dispatch({
-                        type: SYSTEM_ERROR,
-                        payload: 'System Error'
+                        type: GET_FLIGHT_LIST_SUCCESS,
+                        payload: res.data
                     })
-                })
+                }
+                else if (res.data.length === 0) {
+                    dispatch({
+                        type: GET_FLIGHT_LIST_FAIL,
+                        payload: 'Data cannot be found!'
+                    })
+                }
+                else {
+                    dispatch({
+                        type: GET_FLIGHT_LIST_FAIL,
+                        payload: 'Oops, sorry! An error occured. Please try Again!'
+                    })
+                }
             })
             .catch((err) => {
                 console.log(err)
@@ -63,7 +50,6 @@ export const onUserSearchFlight = ({
                     type: SYSTEM_ERROR,
                     payload: 'System Error'
                 })
-            })  
-        }
+            })
+    }
 }
-

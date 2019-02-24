@@ -16,14 +16,16 @@ const INITIAL_STATE = {
     arrival_terminal: '',
     seat_class: '',
     harga: 0, 
-    description: ''
+    description: '',
+    qty:0,
+    username:''
 };
 
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case SELECT_FLIGHT :
-            return action.payload; 
+            return {...state, ...action.payload}; 
         default:
             return state;
     }

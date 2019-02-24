@@ -8,7 +8,7 @@ import {
     Button, Row
 } from 'reactstrap';
 import CarouselFlight from './CarouselFlight';
-import { onUserSearchFlight } from '../actions';
+import { onUserSearchFlight, select_flight } from '../actions';
 
 
 
@@ -23,7 +23,7 @@ class ProductFlightHome extends Component {
         var username = this.props.username
         
         this.props.onUserSearchFlight({username, departure_city, arrival_city, tanggal, qty, seat_class});
-        
+        this.props.select_flight({username, departure_city, arrival_city, tanggal, qty, seat_class})
     }
 
     render() {
@@ -95,4 +95,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {onUserSearchFlight})(ProductFlightHome);
+export default connect(mapStateToProps, {onUserSearchFlight, select_flight})(ProductFlightHome);

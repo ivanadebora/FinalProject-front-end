@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 import { onUserLogout } from '../actions/authAction';
-import { keepLogin } from '../actions';
+
 
 const cookies = new Cookies();
 
@@ -24,10 +24,6 @@ class HeaderTID extends Component {
                         <nav id="nav-menu-container">
                             <ul className="nav-menu">
                                 <li className="font1"><a href="#hero">Pesanan Saya</a></li>
-                                    <ul>
-                                        <li><a href="#hotel">Keranjang Belanja</a></li>
-                                        <li><a href="/flighthome">Tiket Saya</a></li>
-                                    </ul>
                                 <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
                                     <ul>
                                         <li><a href="#hotel">Hotel</a></li>
@@ -51,7 +47,16 @@ class HeaderTID extends Component {
                         </div>
                         <nav id="nav-menu-container">
                             <ul className="nav-menu">
-                                <li className="font1"><a href="#hero">Pesanan Saya</a></li>
+                                <li className="font1"><a href="#hero">Pesanan Saya <i className="fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><a href="#hotel">Cart Hotel</a></li>
+                                        <li><a href="/flightcart">Cart Penerbangan</a></li>
+                                        <li><a href="#hotel">Cart Entertaiment</a></li>
+                                        <li><a href="#hotel">Tiket Hotel</a></li>
+                                        <li><a href="#pesawat">Tiket Penerbangan</a></li>
+                                        <li><a href="#entertaiment">Tiket Entertaiment</a></li>
+                                    </ul>
+                                    </li>
                                 <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
                                     <ul>
                                         <li><a href="#flight">Hotel</a></li>
@@ -80,4 +85,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {onUserLogout, keepLogin })(HeaderTID);
+export default connect(mapStateToProps, {onUserLogout })(HeaderTID);

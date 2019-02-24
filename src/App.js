@@ -19,6 +19,10 @@ import AdminProductFlightManageMaskapai from './components/AdminProductFlightMan
 import ProductFlightHome from './components/ProductFlightHome';
 import ProductFlightList from './components/ProductFlightList';
 import ProductFlightDetail from './components/ProductFlightDetail';
+import ProductFlighAddToCart from './components/ProductFlighAddToCart';
+import ProductFlightCart from './components/ProductFlightCart';
+import ProductFlightCartDetail from './components/ProductFlightCartDetail';
+
 
 
 
@@ -55,6 +59,9 @@ class App extends Component {
             <Route path="/flighthome" component={ProductFlightHome} />
             <Route path="/flightlist" component={ProductFlightList} />
             <Route path="/flightdetail" component={ProductFlightDetail} />
+            <Route path="/flightdetailpesanan" component={ProductFlighAddToCart} />
+            <Route path="/flightcart" component={ProductFlightCart} />
+            <Route path="/flightcartdetail" component={ProductFlightCartDetail} />
           </div>
           <FooterTID/>
         </div>
