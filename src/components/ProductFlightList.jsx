@@ -19,38 +19,38 @@ class ProductFlightList extends Component {
 
     state = { listMaskapai: [], listProductFlight: [], searchListFlight: [], idSelectedItem: 0}
 
-    componentDidMount() {
-        this.getListMaskapai();
-        console.log(this.props.product.departure_city)
-        console.log(this.props.product.arrival_city)
-        console.log(this.props.product.tanggal)
-        console.log(this.props.product.seat_class)
-        console.log(this.props.product.qty)
-        var departure_city = this.props.product.departure_city ;
-        var arrival_city = this.props.product.arrival_city ;
-        var tanggal = this.props.product.tanggal ;
-        var seat_class = this.props.product.seat_class;
-        var qty = this.props.product.qty;
+    // componentDidMount() {
+    //     this.getListMaskapai();
+    //     console.log(this.props.product.departure_city)
+    //     console.log(this.props.product.arrival_city)
+    //     console.log(this.props.product.tanggal)
+    //     console.log(this.props.product.seat_class)
+    //     console.log(this.props.product.qty)
+    //     var departure_city = this.props.product.departure_city ;
+    //     var arrival_city = this.props.product.arrival_city ;
+    //     var tanggal = this.props.product.tanggal ;
+    //     var seat_class = this.props.product.seat_class;
+    //     var qty = this.props.product.qty;
 
-        axios.post('http://localhost:1212/flight/listsearch', {
-                departure_city, arrival_city, tanggal, seat_class, qty
-            })
-            .then((res) => {
-                console.log(res.data)
-                this.setState({listProductFlight: res.data, searchListFlight: res.data})
-            })
-            .catch((err) => {
-                console.log (err)
-            })
-    }
+    //     axios.post('http://localhost:1212/flight/listsearch', {
+    //             departure_city, arrival_city, tanggal, seat_class, qty
+    //         })
+    //         .then((res) => {
+    //             console.log(res.data)
+    //             this.setState({listProductFlight: res.data, searchListFlight: res.data})
+    //         })
+    //         .catch((err) => {
+    //             console.log (err)
+    //         })
+    // }
     
-    getListMaskapai = () => {
-        axios.get('http://localhost:1212/flight/listmaskapai')
-        .then((res) => {
-            this.setState({ listMaskapai: res.data })
-            console.log(res.data)
-        })
-    }
+    // getListMaskapai = () => {
+    //     axios.get('http://localhost:1212/flight/listmaskapai')
+    //     .then((res) => {
+    //         this.setState({ listMaskapai: res.data })
+    //         console.log(res.data)
+    //     })
+    // }
 
     onBtnSearchClick() {
         var nama = this.refs.maskapaiFilter.refs.tbMaskapaiFilter.value;
@@ -82,19 +82,19 @@ class ProductFlightList extends Component {
     }
 
     renderListFlight = () => {
-        var listJSXFlight = this.state.searchListFlight.map((item) => {
+        var listJSXFlight = this.props.product1.map((item) => {
             return (
                 <tr>
                     <td><img src={`http://localhost:1212${item.image}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
-                    <td>{item.nama}</td>
-                    <td>{item.code}</td>
-                    <td>{item.departure_city}</td>
-                    <td>{item.departure_time}</td>
-                    <td>{item.arrival_city}</td>
-                    <td>{item.arrival_time}</td>
-                    <td>{rupiah.format(item.harga)}</td>
-                    <td><a href={`/flightdetailpesanan?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onPesanClick(item.id)}>Pesan</a></td>
-                    <td><a href={`/flightdetail?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a></td>
+                    <td style={{paddingLeft:'50px'}}>{item.nama}</td>
+                    <td style={{paddingLeft:'100px'}}>{item.code}</td>
+                    <td style={{paddingLeft:'100px'}}>{item.departure_city}</td>
+                    <td style={{paddingLeft:'100px'}}>{item.departure_time}</td>
+                    <td style={{paddingLeft:'100px'}}>{item.arrival_city}</td>
+                    <td style={{paddingLeft:'100px'}}>{item.arrival_time}</td>
+                    <td style={{paddingLeft:'100px'}}>{rupiah.format(item.harga)}</td>
+                    <td style={{paddingLeft:'100px'}}><a href={`/flightdetailpesanan?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onPesanClick(item.id)}>Pesan</a></td>
+                    <td style={{paddingLeft:'100px'}}><a href={`/flightdetail?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a></td>
                 </tr>
             )
         })
@@ -106,8 +106,8 @@ class ProductFlightList extends Component {
         return(
             <div id="hero" className="wow fadeIn">
             <div className="hero-container" >
-            <Container style={{border: "3px solid light", backgroundColor:"#2abe8d", width:"600px", marginTop:"-200px"}}>
-                <Form className="form">
+            <Container style={{border: "3px solid light", backgroundColor:"#2abe8d", width:"600px", marginTop:"100px"}}>
+                {/* <Form className="form">
                 <Row style={{justifyContent:"space-around"}}>
                     <FormGroup className="filter">
                         <h5 style={{marginTop: "10px", color:"#000"}}>Filter: </h5>
@@ -135,30 +135,40 @@ class ProductFlightList extends Component {
                         <a href="/flighthome" style={{paddingTop:"15px", color:"#000"}}>Ganti Pencarian</a>
                     </Row>
                 </FormGroup>
-                </Form>
+                </Form> */}
             </Container>
-            <div style={{marginTop:"20px", width:"1200px"}}>
-                        <table className="table-responsive">
-                          <thead className="theadList">
+            <div style={{marginTop:"20px", width:"1500px"}}>
+            <div className="col-lg-12" style={{ paddingLeft:"120px", width: "1500px" }}>
+                    <section>
+                      <div className="tbl-header" style={{height:"40px", width: "1500px"}}>
+                        <table className= "tabel2" cellPadding={10} cellSpacing={10} border={0}>
+                          <thead>
                             <tr>
-                              <th>Image</th>
-                              <th>Nama Maskapai</th>
-                              <th>Kode Penerbangan</th>
-                              <th>Kota Asal</th>
-                              <th>Waktu Keberangkatan</th>
-                              <th>Kota Tujuan</th>
-                              <th>Waktu Kedatangan</th>
-                              <th>Harga</th>
+                            <th style={{paddingLeft:'50px', color:"#fff"}}>Image</th>
+                              <th style={{paddingLeft:'100px', color:"#fff"}}>Nama Maskapai</th>
+                              <th style={{paddingLeft:'100px', color:"#fff"}}>Kode Penerbangan</th>
+                              <th style={{paddingLeft:'80px', color:"#fff"}}>Kota Asal</th>
+                              <th style={{paddingLeft:'80px', color:"#fff"}}>Waktu Keberangkatan</th>
+                              <th style={{paddingLeft:'80px', color:"#fff"}}>Kota Tujuan</th>
+                              <th style={{paddingLeft:'80px', color:"#fff"}}>Waktu Kedatangan</th>
+                              <th style={{paddingLeft:'100px', color:"#fff"}}>Harga</th>
                               <th></th>
                               <th></th>
                             </tr>
                           </thead>
-                          <tbody className="tbodyList">
-                            {this.renderListFlight()}
-                          </tbody>
                         </table>
+                        </div>
+                          <div className="tbl-content" style={{paddingRight: '40px', width: "1500px"}}>
+                            <table className= "tabel2" cellPadding={100} cellSpacing={100} border={0}>
+                              <tbody>
+                              {this.renderListFlight()}
+                              </tbody>
+                            </table>
+                          </div>
+                        </section>
+                       
                       </div>
-
+                    </div>
             </div>
             </div>
         )
@@ -172,7 +182,8 @@ const mapStateToProps = (state) => {
     console.log(state.selectedFlight)
     return { 
         username: state.auth.username,
-        product: state.selectedFlight
+        product: state.selectedFlight,
+        product1: state.searchList
     }
 }
 

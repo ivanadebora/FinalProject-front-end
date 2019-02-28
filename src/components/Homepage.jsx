@@ -11,11 +11,11 @@ class Homepage extends Component {
                     <h1>Selamat datang di travelID</h1>
                     <h3>Rencanakan liburan Anda dengan mudah dan hemat bersama kami!</h3>
                     <img src="img/travel.png" alt="Hero Imgs"/>
-                    <div className="btns">
+                    {/* <div className="btns">
                         <a href="#hotel"><i className="fa fa-building fa-2x" /> Hotel</a>
                         <a href="/flighthome"><i className="fa fa-plane fa-2x" /> Penerbangan</a>
                         <a href="#ticket"><i className="fa fa-ticket fa-2x" /> Aktivitas</a>
-                    </div>
+                    </div> */}
                 </div>  
             </div>
             {/* //---------------------------- TravelID ----------------------------------// */}

@@ -8,7 +8,7 @@ h1{
   }
   .table2{
     width: 1200px;
-    table-layout: auto;
+    table-layout: fixed;
     display: flex;
   }
   .tbl-header{

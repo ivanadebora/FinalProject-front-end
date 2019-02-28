@@ -1,37 +1,39 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import axios from 'axios';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import {
     Container, Form,
-    FormGroup, Row, Input
+    FormGroup, Row
 } from 'reactstrap';
 
 
-
+const cookie = new Cookies()
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
-class ProductFlightCartDetail extends Component {
+class ProductFlightTicket extends Component {
 
-    state = {listCart: {}, listPassenger: {}, UploadBukti:'Pilih Gambar'}
+    state = {listHistory: {}, listPassenger: {}}
     
     componentDidMount() {
         console.log(this.props.location.search)
         var params = queryString.parse(this.props.location.search)
         console.log(params)
-        var id = parseInt(params.order_id)
+        var id = parseInt(params.ticket_id)
         var username = params.username;
-        axios.post('http://localhost:1212/flight/lihatcartdetail', {
+        axios.post('http://localhost:1212/flight/listhistorydetail', {
             username, id
         })
         .then((res) => {
-            axios.post('http://localhost:1212/flight/listpassengercart', {
+            axios.post('http://localhost:1212/flight/listpassengerhistory', {
                 id
             })
             .then((res1) => {
                 console.log(res.data)
                 console.log(res1.data)
-                this.setState({listCart:res.data[0], listPassenger:res1.data[0]})
+                this.setState({listHistory:res.data[0], listPassenger:res1.data[0]})
             })
         })
         .catch((err) => {
@@ -39,90 +41,15 @@ class ProductFlightCartDetail extends Component {
       })
     }
 
-    onFileChange = () => {
-        if(document.getElementById("UploadBukti").files[0] !== undefined) {
-          this.setState({UploadBukti: document.getElementById("UploadBukti").files[0].name})
-        }
-        else {
-          this.setState({UploadBukti: 'Pilih Gambar'})
-        }
-      }
-
-    onBtnKonfirmasiClick = () => {
-        if(document.getElementById("UploadBukti").files[0] !== undefined) {
-            var formData = new FormData()
-            var headers = {
-              headers: {'Content-Type': 'multipart/form-data'}
-            }
-      
-            var data = {
-                username: this.state.listCart.username,
-                tanggal_pesan: moment(this.state.listCart.tanggal_pesan).format('YYYY-MM-DD h:mm:ss'),
-                tanggal_konfirmasi: moment(new Date()).format('YYYY-MM-DD h:mm:ss'),
-                flight_productId: this.state.listCart.flight_productId,
-                image_maskapai: this.state.listCart.image,
-                nama: this.state.listCart.nama,
-                code: this.state.listCart.code,
-                seat_class:  this.state.listCart.seat_class,
-                harga:  this.state.listCart.harga,
-                qty:  this.state.listCart.qty,
-                total_harga:  this.state.listCart.total_harga,
-                tanggal:  moment(this.state.listCart.tanggal).format('YYYY-MM-DD'),
-                departure_city:  this.state.listCart.departure_city,
-                departure_terminal:  this.state.listCart.departure_terminal,
-                departure_time:  this.state.listCart.departure_time,
-                arrival_city:  this.state.listCart.arrival_city,
-                arrival_terminal:  this.state.listCart.arrival_terminal,
-                arrival_time:  this.state.listCart.arrival_time,
-                status_transaksi: 'Menunggu Persetujuan Pembayaran'
-            }
-      
-            if(document.getElementById('UploadBukti')){
-              formData.append('image', document.getElementById('UploadBukti').files[0])
-            }
-            formData.append('data', JSON.stringify(data))
-            
-            axios.post('http://localhost:1212/flight/addtransaction', formData, headers)
-            .then((res) => {
-                console.log(res.data)
-                axios.post('http://localhost:1212/flight/updatepassenger', {
-                    id_pesanan: this.state.listCart.id, 
-                    id_transaksi: res.data.insertId
-                })
-                .then((res1) => {
-                    console.log(res1.data)
-                    axios.post('http://localhost:1212/flight/deletecart', {
-                        id: this.state.listCart.id,
-                        username: this.state.listCart.username,
-                        flight_productId : this.state.listCart.flight_productId
-                    })
-                    .then((res2) => {
-                        console.log(res2)
-                        alert("Berhasil mengupload bukti pembayaran!")
-                        this.setState({listCart: null})
-                    })
-                })
-                .catch((err) => {
-                    console.location(err)
-                })
-              
-            })
-            .catch((err) =>{
-              console.log(err)
-            })
-          }
-          else {
-            alert('Bukti bayar harus diisi!')
-          }
-    }
 
     render(){
-        if(this.state.listCart !== null) {
-            var {username, image, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan,
+        var {username, image_maskapai, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan, status_transaksi,
                 departure_city, departure_terminal, departure_time, 
-                arrival_city, arrival_terminal, arrival_time} = this.state.listCart
+                arrival_city, arrival_terminal, arrival_time} = this.state.listHistory
         var { passenger1, passenger2, passenger3, passenger4, passenger5, 
                 ktp1, ktp2, ktp3, ktp4, ktp5 } = this.state.listPassenger
+        var newUser = cookie.get('dataUser')
+        if (newUser !== undefined) {
             return(
                 <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
                     <Form className="form">
@@ -132,11 +59,12 @@ class ProductFlightCartDetail extends Component {
                         <FormGroup>
                             <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Pemesan: {username}</h3>
                             <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Tanggal Pemesanan: {moment(tanggal_pesan).format('Do MMMM YYYY, h:mm:ss')}</h3>
+                            <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Status: {status_transaksi}</h3>
                         </FormGroup>
                     </FormGroup>
                     <Row style={{justifyContent: "space-around"}}>
                     <FormGroup className="col-lg-4">
-                        <img src={`http://localhost:1212${image}`} alt={nama} style={{width:"100px"}}/>
+                        <img src={`http://localhost:1212${image_maskapai}`} alt={nama} style={{width:"100px"}}/>
                         <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
                         <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{code}</h3>
                         <h3 style={{fontSize:"12px", color:"#000"}}>{seat_class}</h3>
@@ -175,20 +103,24 @@ class ProductFlightCartDetail extends Component {
                     <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger3} {ktp3}</h3>
                     <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger4} {ktp4}</h3>
                     <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger5} {ktp5}</h3>
-                    <FormGroup></FormGroup>
-                    <h3 style={{fontSize:"16px", fontWeight:"bold", color:"#000", textAlign:"left"}}>Upload Pembayaran: </h3>
-                    <Input type="file" id="UploadBukti" name="UploadBukti" label={this.state.UploadBukti} onChange={this.onFileChange} style={{marginLeft: '20px', width: '80%'}}/>
-                    <FormGroup></FormGroup>
-                    <input type="button" className="btn btn-success" value="Konfirmasi Pembayaran" style={{width:"250px", textAlign:"center"}} onClick={this.onBtnKonfirmasiClick}/>
                     </FormGroup>
                     </FormGroup>
                     </Form>
                 </Container>
             );
         }
+        else {
             return <Redirect to="/" />
         }
+    }
+}
+
+const mapStateToProps = (state) => {
+    console.log(state.auth.username)
+    return {
+        username: state.auth.username
+    }
 }
 
 
-export default ProductFlightCartDetail;
+export default connect(mapStateToProps)(ProductFlightTicket);

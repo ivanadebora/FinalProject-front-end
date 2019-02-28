@@ -17,11 +17,11 @@ export const select_flight = (selectedFlight) => {
 
 
 export const onUserSearchFlight = ({
-        departure_city, arrival_city, tanggal, qty, seat_class, username
+        departure_city, arrival_city, tanggal, qty, seat_class
     }) => {
         return (dispatch) => {
             axios.post('http://localhost:1212/flight/listsearch', {
-                departure_city, arrival_city, tanggal, qty, seat_class, username
+                departure_city, arrival_city, tanggal, qty, seat_class
             })
             .then((res) => {
                 console.log(res.data)

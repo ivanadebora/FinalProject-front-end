@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import {
-    TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, Row, Col
+    TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col
 } from 'reactstrap';
-import AdminProductFlightDashboard from './AdminProductFlightDashboard';
 
-const cookie = new Cookies()
-class AdminProductHome extends Component {
+
+
+class AdminPaymentHome extends Component {
 
     constructor(props) {
         super(props);
@@ -17,20 +15,18 @@ class AdminProductHome extends Component {
         this.state = {
           activeTab: '1'
         };
-      }
+    }
     
-      toggle(tab) {
+    toggle(tab) {
         if (this.state.activeTab !== tab) {
           this.setState({
             activeTab: tab
           });
         }
-      }
+    }
 
 
     render(){
-      var newRole = cookie.get('dataRole')
-      if (newRole === 'AdminProduct') {
         return(
           <div id="hero" className="wow fadeIn">
               <div className="container">
@@ -44,7 +40,7 @@ class AdminProductHome extends Component {
           Flight
           </NavLink>
         </NavItem>
-        {/* <NavItem>
+        <NavItem>
           <NavLink
             className={({ active: this.state.activeTab === '2' })}
             onClick={() => { this.toggle('2'); }}
@@ -59,7 +55,7 @@ class AdminProductHome extends Component {
           >
           Entertaiment
           </NavLink>
-        </NavItem> */}
+        </NavItem>
       </Nav>
       <TabContent activeTab={this.state.activeTab}>
         <TabPane tabId="1">
@@ -67,12 +63,12 @@ class AdminProductHome extends Component {
           <Col lg="12">
               <Card body>
                 <CardTitle style={{textAlign: "center", padding: "20px",fontSize: "20px"}}>Manage Page Flight</CardTitle>
-                <AdminProductFlightDashboard />
+                <AdminPaymentHome />
               </Card>
             </Col>
           </Row>
         </TabPane>
-        {/* <TabPane tabId="2">
+        <TabPane tabId="2">
           <Row>
             <Col lg="12">
               <Card body>
@@ -93,14 +89,12 @@ class AdminProductHome extends Component {
               </Card>
             </Col>
           </Row>
-        </TabPane> */}
+        </TabPane>
       </TabContent>
     </div>
           </div>
           </div>
       );
-      }
-        return <Redirect to="/" />
       }
 }
 
@@ -112,4 +106,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(AdminProductHome);
+export default connect(mapStateToProps)(AdminPaymentHome);

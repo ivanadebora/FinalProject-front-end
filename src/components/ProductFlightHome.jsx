@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Cookies from 'universal-cookie'
 import {
     Container, Form,
     FormGroup, Input,
@@ -11,7 +12,7 @@ import CarouselFlight from './CarouselFlight';
 import { onUserSearchFlight, select_flight } from '../actions';
 
 
-
+const cookies = new Cookies()
 class ProductFlightHome extends Component {
 
     onBtnSearchClick = () => {
@@ -27,6 +28,8 @@ class ProductFlightHome extends Component {
     }
 
     render() {
+        var newUser = cookies.get('dataUser')
+        if(newUser !== ''){
             if(this.props.length > 0 ){
                 return <Redirect to="/flightlist" />
             }
@@ -81,6 +84,8 @@ class ProductFlightHome extends Component {
                 </div>
                </div>
             )
+        }
+            return <Redirect to="/" />
         }
 }
 

@@ -11,6 +11,7 @@ class Login extends Component {
   componentWillReceiveProps(newProps) {
     if (newProps.username !== '') {
         cookies.set('dataUser', newProps.username, {path: '/'});
+        cookies.set('dataRole', newProps.role, {path: '/'})
     }
   }
 
@@ -78,6 +79,9 @@ class Login extends Component {
     }
     else if (this.props.username !== '' && this.props.status === 'Verified' && this.props.role === 'AdminProduct') {
       return <Redirect to="/adminproducthome"/>
+    }
+    else if (this.props.username !== '' && this.props.status === 'Verified' && this.props.role === 'AdminPembayaran') {
+      return <Redirect to="/adminpaymenthome"/>
     }
   }
 }

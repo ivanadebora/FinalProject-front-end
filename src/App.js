@@ -22,17 +22,21 @@ import ProductFlightDetail from './components/ProductFlightDetail';
 import ProductFlighAddToCart from './components/ProductFlighAddToCart';
 import ProductFlightCart from './components/ProductFlightCart';
 import ProductFlightCartDetail from './components/ProductFlightCartDetail';
+import ProductFlightHistory from './components/ProductFlightHistory';
+import ProductFlightTicket from './components/ProductFlightTicket';
+import AdminPaymentFlightManage from './components/AdminPaymentFlightManage';
 
 
 
 
-const cookies = new Cookies();
+const cookie = new Cookies();
 
 class App extends Component {
 
   componentDidMount() {
-    const username = cookies.get('dataUser');
-    if (username !== undefined) {
+    const username = cookie.get('dataUser');
+    const role = cookie.get('dataRole')
+    if (username !== undefined && role !== undefined) {
         this.props.keepLogin(username);
     }
     else {
@@ -62,6 +66,10 @@ class App extends Component {
             <Route path="/flightdetailpesanan" component={ProductFlighAddToCart} />
             <Route path="/flightcart" component={ProductFlightCart} />
             <Route path="/flightcartdetail" component={ProductFlightCartDetail} />
+            <Route path="/flighthistory" component={ProductFlightHistory} />
+            <Route path="/flight_ticket" component={ProductFlightTicket} />
+
+            <Route path="/adminpaymenthome" component ={AdminPaymentFlightManage} />
           </div>
           <FooterTID/>
         </div>

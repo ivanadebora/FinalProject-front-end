@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import '../supports/css/tablelist.css';
 import AdminProductFlightDashboard from './AdminProductFlightDashboard';
 
-
+const cookie = new Cookies()
 class AdminProductFlightManageMaskapai extends Component {
 
   state = { listMaskapai: [], idSelectedtoEdit: 0, AddFlightImage: 'Pilih Gambar', EditFlightImage: 'Pilih Gambar'}
@@ -113,8 +114,8 @@ class AdminProductFlightManageMaskapai extends Component {
                 <td style={{paddingLeft:"20px"}}></td>
                 <td><input type="text" ref="maskapaiEdit" defaultValue={item.nama} style={{width: '200px', fontSize: '16px', paddingLeft:"30px"}}/></td>
                 <td><input type="file" id="EditFlightImage" name="EditFlightImage" label={this.state.EditFlightImage} onChange={this.onEditFileImageChange} style={{marginLeft: '20px', width: '80%'}}/></td>
-                <td><input type="button" class="btnTable btn-primary" value="Cancel" onClick={() => this.setState({ idSelectedtoEdit: 0 })} /></td>
-                <td><input type="button" class="btnTable btn-success" value="Update" onClick={() => this.onBtnUpdateClick(item.id)} /></td>
+                <td><input type="button" className="btnTable btn-primary" value="Cancel" onClick={() => this.setState({ idSelectedtoEdit: 0 })} /></td>
+                <td><input type="button" className="btnTable btn-success" value="Update" onClick={() => this.onBtnUpdateClick(item.id)} /></td>
             </tr>
         )
       }
@@ -123,8 +124,8 @@ class AdminProductFlightManageMaskapai extends Component {
             <td style={{paddingLeft:"10px"}}>{item.id}</td>
             <td style={{paddingLeft:"20px"}}>{item.nama}</td>
             <td style={{paddingLeft:"60px"}}><img src={`http://localhost:1212${item.image}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
-            <td style={{paddingLeft:"50px"}}><input type="button" class="btnTable btn-warning" value="Edit" onClick={() => this.setState({idSelectedtoEdit:item.id})} style={{paddingBottom:"20px"}}/></td>
-            <td style={{paddingLeft:"20px"}}><input type="button" class="btnTable btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(item.id)} style={{paddingBottom:"20px"}}/></td>
+            <td style={{paddingLeft:"50px"}}><input type="button" className="btnTable btn-warning" value="Edit" onClick={() => this.setState({idSelectedtoEdit:item.id})} style={{paddingBottom:"20px"}}/></td>
+            <td style={{paddingLeft:"20px"}}><input type="button" className="btnTable btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(item.id)} style={{paddingBottom:"20px"}}/></td>
         </tr>
       )
     })
@@ -133,7 +134,8 @@ class AdminProductFlightManageMaskapai extends Component {
 
 
   render() {
-    if(this.props.role === 'AdminProduct') {
+    const newRole = cookie.get('dataRole')
+    if(newRole === 'AdminProduct') {
       return (
         <div id="hero" className="wow fadeIn">
           <div className="container">
@@ -184,7 +186,9 @@ class AdminProductFlightManageMaskapai extends Component {
               </div>
       );
     }
-      return <Redirect to="/" />
+    
+        return <Redirect to="/" />
+    
     }
 }
 

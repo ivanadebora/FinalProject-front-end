@@ -4,13 +4,14 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { onUserRegister } from '../actions/authAction'
 
-const cookies = new Cookies();
+const cookie = new Cookies();
 
 class Register extends Component {
 
   componentWillReceiveProps(newProps) {
     if (newProps.username !== '') {
-        cookies.set('dataUser', newProps.username, {path: '/'})
+        cookie.set('dataUser', newProps.username, {path: '/'})
+        cookie.set('dataRole', newProps.role, {path: '/'})
     }
   }
 
