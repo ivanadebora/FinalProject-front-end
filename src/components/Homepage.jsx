@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import FooterTID from './FooterTID';
 
 
 class Homepage extends Component {
@@ -95,6 +96,7 @@ class Homepage extends Component {
                 </div>
             </div>
             {/* //----------------------------------------------------------------------// */}
+            <FooterTID/>
             </div>
         )
     }

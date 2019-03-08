@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 
-const cookie = new Cookies()
+const cookie = new Cookies();
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
 class ProductFlightTicket extends Component {
 
@@ -40,7 +40,6 @@ class ProductFlightTicket extends Component {
           console.log(err)
       })
     }
-
 
     render(){
         var {username, image_maskapai, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan, status_transaksi,
@@ -84,10 +83,6 @@ class ProductFlightTicket extends Component {
                         <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>tujuan:</h3>
                         <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_city} ({arrival_terminal})</h3>
                     </FormGroup>
-                    {/* <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"-100px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Description</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{description}</h3>
-                    </FormGroup> */}
                     </Row>
                     <FormGroup></FormGroup>
                     <FormGroup>

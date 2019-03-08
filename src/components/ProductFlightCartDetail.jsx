@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import queryString from 'query-string';
 import axios from 'axios';
 import moment from 'moment';
@@ -9,7 +10,7 @@ import {
 } from 'reactstrap';
 
 
-
+const cookie = new Cookies();
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
 class ProductFlightCartDetail extends Component {
 
@@ -117,78 +118,79 @@ class ProductFlightCartDetail extends Component {
     }
 
     render(){
-        if(this.state.listCart !== null) {
-            var {username, image, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan,
-                departure_city, departure_terminal, departure_time, 
-                arrival_city, arrival_terminal, arrival_time} = this.state.listCart
-        var { passenger1, passenger2, passenger3, passenger4, passenger5, 
-                ktp1, ktp2, ktp3, ktp4, ktp5 } = this.state.listPassenger
-            return(
-                <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
-                    <Form className="form">
-                    <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>Detail Pemesanan Tiket Pesawat Anda:</h2></center>
-                    <FormGroup></FormGroup>
-                    <FormGroup>
+        var newUser = cookie.get('dataUser')
+        if (newUser !== undefined) {
+            if(this.state.listCart !== null) {
+                var {username, image, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan,
+                    departure_city, departure_terminal, departure_time, 
+                    arrival_city, arrival_terminal, arrival_time} = this.state.listCart
+            var { passenger1, passenger2, passenger3, passenger4, passenger5, 
+                    ktp1, ktp2, ktp3, ktp4, ktp5 } = this.state.listPassenger
+                return(
+                    <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
+                        <Form className="form">
+                        <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>Detail Pemesanan Tiket Pesawat Anda:</h2></center>
+                        <FormGroup></FormGroup>
                         <FormGroup>
-                            <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Pemesan: {username}</h3>
-                            <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Tanggal Pemesanan: {moment(tanggal_pesan).format('Do MMMM YYYY, h:mm:ss')}</h3>
+                            <FormGroup>
+                                <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Pemesan: {username}</h3>
+                                <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Tanggal Pemesanan: {moment(tanggal_pesan).format('Do MMMM YYYY, h:mm:ss')}</h3>
+                            </FormGroup>
                         </FormGroup>
-                    </FormGroup>
-                    <Row style={{justifyContent: "space-around"}}>
-                    <FormGroup className="col-lg-4">
-                        <img src={`http://localhost:1212${image}`} alt={nama} style={{width:"100px"}}/>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{code}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000"}}>{seat_class}</h3>
-                    </FormGroup>
-                    <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"40px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>sampai</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
-                    </FormGroup>
-                    <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"30px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>dari:</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_city} ({departure_terminal})</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>tujuan:</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_city} ({arrival_terminal})</h3>
-                    </FormGroup>
-                    {/* <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"-100px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Description</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{description}</h3>
-                    </FormGroup> */}
-                    </Row>
-                    <FormGroup></FormGroup>
-                    <FormGroup>
-                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Jumlah Penumpang: {qty}</h3>
-                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Harga/pax: {rupiah.format(harga)}</h3>
-                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Total Pembayaran: {rupiah.format(total_harga)}</h3>
-                    </FormGroup>
-                    <FormGroup>
-                    <FormGroup style={{height:"400px", width:"600px", paddingLeft:"10px"}}>
-                    <h3 style={{fontSize:"16px", fontWeight:"bold", color:"#000", textAlign:"left"}}>Detail Penumpang: </h3>
-                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger1} {ktp1}</h3>
-                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger2} {ktp2}</h3>
-                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger3} {ktp3}</h3>
-                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger4} {ktp4}</h3>
-                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger5} {ktp5}</h3>
-                    <FormGroup></FormGroup>
-                    <h3 style={{fontSize:"16px", fontWeight:"bold", color:"#000", textAlign:"left"}}>Upload Pembayaran: </h3>
-                    <Input type="file" id="UploadBukti" name="UploadBukti" label={this.state.UploadBukti} onChange={this.onFileChange} style={{marginLeft: '20px', width: '80%'}}/>
-                    <FormGroup></FormGroup>
-                    <input type="button" className="btn btn-success" value="Konfirmasi Pembayaran" style={{width:"250px", textAlign:"center"}} onClick={this.onBtnKonfirmasiClick}/>
-                    </FormGroup>
-                    </FormGroup>
-                    </Form>
-                </Container>
-            );
-        }
+                        <Row style={{justifyContent: "space-around"}}>
+                        <FormGroup className="col-lg-4">
+                            <img src={`http://localhost:1212${image}`} alt={nama} style={{width:"100px"}}/>
+                            <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{code}</h3>
+                            <h3 style={{fontSize:"12px", color:"#000"}}>{seat_class}</h3>
+                        </FormGroup>
+                        <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"40px"}}>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>sampai</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
+                        </FormGroup>
+                        <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"30px"}}>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>dari:</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_city} ({departure_terminal})</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>tujuan:</h3>
+                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_city} ({arrival_terminal})</h3>
+                        </FormGroup>
+                        </Row>
+                        <FormGroup></FormGroup>
+                        <FormGroup>
+                            <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Jumlah Penumpang: {qty}</h3>
+                            <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Harga/pax: {rupiah.format(harga)}</h3>
+                            <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Total Pembayaran: {rupiah.format(total_harga)}</h3>
+                        </FormGroup>
+                        <FormGroup>
+                        <FormGroup style={{height:"400px", width:"600px", paddingLeft:"10px"}}>
+                        <h3 style={{fontSize:"16px", fontWeight:"bold", color:"#000", textAlign:"left"}}>Detail Penumpang: </h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger1} {ktp1}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger2} {ktp2}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger3} {ktp3}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger4} {ktp4}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger5} {ktp5}</h3>
+                        <FormGroup></FormGroup>
+                        <h3 style={{fontSize:"16px", fontWeight:"bold", color:"#000", textAlign:"left"}}>Upload Pembayaran: </h3>
+                        <Input type="file" id="UploadBukti" name="UploadBukti" label={this.state.UploadBukti} onChange={this.onFileChange} style={{marginLeft: '20px', width: '80%'}}/>
+                        <FormGroup></FormGroup>
+                        <input type="button" className="btn btn-success" value="Konfirmasi Pembayaran" style={{width:"250px", textAlign:"center"}} onClick={this.onBtnKonfirmasiClick}/>
+                        </FormGroup>
+                        </FormGroup>
+                        </Form>
+                    </Container>
+                );
+            }
             return <Redirect to="/" />
+        }
+        return <Redirect to="/" />
         }
 }
 
 
-export default ProductFlightCartDetail;
+
+export default (ProductFlightCartDetail);

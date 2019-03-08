@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import '../supports/filter/reset.css';
-import '../supports/filter/style2.css';
+import queryString from 'query-string';
 import {
-    Container, Form,
-    FormGroup, Input,
-    Button, Row
+    Container, Form, FormGroup, Input, Row, Button, Col, Card, CardText
 } from 'reactstrap';
 import { select_flight  } from '../actions/'
 
@@ -19,38 +16,35 @@ class ProductFlightList extends Component {
 
     state = { listMaskapai: [], listProductFlight: [], searchListFlight: [], idSelectedItem: 0}
 
-    // componentDidMount() {
-    //     this.getListMaskapai();
-    //     console.log(this.props.product.departure_city)
-    //     console.log(this.props.product.arrival_city)
-    //     console.log(this.props.product.tanggal)
-    //     console.log(this.props.product.seat_class)
-    //     console.log(this.props.product.qty)
-    //     var departure_city = this.props.product.departure_city ;
-    //     var arrival_city = this.props.product.arrival_city ;
-    //     var tanggal = this.props.product.tanggal ;
-    //     var seat_class = this.props.product.seat_class;
-    //     var qty = this.props.product.qty;
+    componentDidMount() {
+        this.getListMaskapai();
+        var params = queryString.parse(this.props.location.search)
+        var departure_city = params.dept_city;
+        var arrival_city = params.arr_city;
+        var tanggal = params.tanggal;
+        var seat_class = params.kelas;
+        var qty = parseInt(params.jumlah_penumpang)
+        console.log(params)
 
-    //     axios.post('http://localhost:1212/flight/listsearch', {
-    //             departure_city, arrival_city, tanggal, seat_class, qty
-    //         })
-    //         .then((res) => {
-    //             console.log(res.data)
-    //             this.setState({listProductFlight: res.data, searchListFlight: res.data})
-    //         })
-    //         .catch((err) => {
-    //             console.log (err)
-    //         })
-    // }
+        axios.post('http://localhost:1212/flight/listsearch', {
+                departure_city, arrival_city, tanggal, seat_class, qty
+            })
+            .then((res) => {
+                console.log(res.data)
+                this.setState({listProductFlight: res.data, searchListFlight: res.data})
+            })
+            .catch((err) => {
+                console.log (err)
+            })
+    }
     
-    // getListMaskapai = () => {
-    //     axios.get('http://localhost:1212/flight/listmaskapai')
-    //     .then((res) => {
-    //         this.setState({ listMaskapai: res.data })
-    //         console.log(res.data)
-    //     })
-    // }
+    getListMaskapai = () => {
+        axios.get('http://localhost:1212/flight/listmaskapai')
+        .then((res) => {
+            this.setState({ listMaskapai: res.data })
+            console.log(res.data)
+        })
+    }
 
     onBtnSearchClick() {
         var nama = this.refs.maskapaiFilter.refs.tbMaskapaiFilter.value;
@@ -63,7 +57,7 @@ class ProductFlightList extends Component {
 
     onPesanClick = (id) =>{
         this.setState({idSelectedItem:id})
-         this.props.select_flight({id})
+        this.props.select_flight({id});
     }
     
     onLihatClick = (id) => {
@@ -82,20 +76,37 @@ class ProductFlightList extends Component {
     }
 
     renderListFlight = () => {
-        var listJSXFlight = this.props.product1.map((item) => {
+        var listJSXFlight = this.state.listProductFlight.map((item) => {
             return (
-                <tr>
-                    <td><img src={`http://localhost:1212${item.image}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
-                    <td style={{paddingLeft:'50px'}}>{item.nama}</td>
-                    <td style={{paddingLeft:'100px'}}>{item.code}</td>
-                    <td style={{paddingLeft:'100px'}}>{item.departure_city}</td>
-                    <td style={{paddingLeft:'100px'}}>{item.departure_time}</td>
-                    <td style={{paddingLeft:'100px'}}>{item.arrival_city}</td>
-                    <td style={{paddingLeft:'100px'}}>{item.arrival_time}</td>
-                    <td style={{paddingLeft:'100px'}}>{rupiah.format(item.harga)}</td>
-                    <td style={{paddingLeft:'100px'}}><a href={`/flightdetailpesanan?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onPesanClick(item.id)}>Pesan</a></td>
-                    <td style={{paddingLeft:'100px'}}><a href={`/flightdetail?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a></td>
-                </tr>
+               <Col lg="12" style={{ marginTop: "5px", marginBottom:"10px" }}>
+               
+               <Card style={{height:120, borderRadius:10}}>
+               <Row style={{justifyContent: "space-around"}}>
+                   <CardText style={{marginTop:30, width:200}}>
+                        <img  className="img-responsive" src={`http://localhost:1212${item.image}`} alt={item.nama} style={{height:30}}/>
+                        <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.nama}</h3>
+                        <p>{item.code}</p>
+                    </CardText>
+                    <CardText style={{marginTop:30}}>
+                        <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.departure_city}</h3>
+                        <p>{item.departure_time}</p>
+                    </CardText>
+                    <CardText style={{marginTop:20}}>
+                        <br/>
+                        <i className="fa fa-chevron-right"/><i className="fa fa-chevron-right"/><i className="fa fa-chevron-right"/>
+                    </CardText>
+                    <CardText style={{marginTop:30}}>
+                        <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.arrival_city}</h3>
+                        <p>{item.arrival_time}</p>
+                    </CardText>
+                    <CardText style={{marginTop:30}}>
+                        <h3 style={{fontSize:16, fontWeight:'bold', color:"#ef4d13"}}>{rupiah.format(item.harga)}</h3>
+                        <Button className="btn btn-success" href={`/flightdetailpesanan?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onPesanClick(item.id)}>Pesan</Button><br/>
+                        <a href={`/flightdetail?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a>
+                    </CardText>
+                </Row>
+               </Card>
+               </Col>
             )
         })
         return listJSXFlight;
@@ -104,10 +115,8 @@ class ProductFlightList extends Component {
     render(){
         if(this.props.username !== '') {
         return(
-            <div id="hero" className="wow fadeIn">
-            <div className="hero-container" >
-            <Container style={{border: "3px solid light", backgroundColor:"#2abe8d", width:"600px", marginTop:"100px"}}>
-                {/* <Form className="form">
+            <center><Container>
+                <Form className="form"  style={{border: "3px solid light", borderRadius: 10, backgroundColor:"#2abe8d", width:"600px", height: "200px", marginTop:"80px"}}>
                 <Row style={{justifyContent:"space-around"}}>
                     <FormGroup className="filter">
                         <h5 style={{marginTop: "10px", color:"#000"}}>Filter: </h5>
@@ -135,42 +144,11 @@ class ProductFlightList extends Component {
                         <a href="/flighthome" style={{paddingTop:"15px", color:"#000"}}>Ganti Pencarian</a>
                     </Row>
                 </FormGroup>
-                </Form> */}
-            </Container>
-            <div style={{marginTop:"20px", width:"1500px"}}>
-            <div className="col-lg-12" style={{ paddingLeft:"120px", width: "1500px" }}>
-                    <section>
-                      <div className="tbl-header" style={{height:"40px", width: "1500px"}}>
-                        <table className= "tabel2" cellPadding={10} cellSpacing={10} border={0}>
-                          <thead>
-                            <tr>
-                            <th style={{paddingLeft:'50px', color:"#fff"}}>Image</th>
-                              <th style={{paddingLeft:'100px', color:"#fff"}}>Nama Maskapai</th>
-                              <th style={{paddingLeft:'100px', color:"#fff"}}>Kode Penerbangan</th>
-                              <th style={{paddingLeft:'80px', color:"#fff"}}>Kota Asal</th>
-                              <th style={{paddingLeft:'80px', color:"#fff"}}>Waktu Keberangkatan</th>
-                              <th style={{paddingLeft:'80px', color:"#fff"}}>Kota Tujuan</th>
-                              <th style={{paddingLeft:'80px', color:"#fff"}}>Waktu Kedatangan</th>
-                              <th style={{paddingLeft:'100px', color:"#fff"}}>Harga</th>
-                              <th></th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                        </table>
-                        </div>
-                          <div className="tbl-content" style={{paddingRight: '40px', width: "1500px"}}>
-                            <table className= "tabel2" cellPadding={100} cellSpacing={100} border={0}>
-                              <tbody>
-                              {this.renderListFlight()}
-                              </tbody>
-                            </table>
-                          </div>
-                        </section>
-                       
-                      </div>
-                    </div>
-            </div>
-            </div>
+                </Form>
+                <br />
+                {this.renderListFlight()}
+            </Container></center>
+            
         )
         }
         return <Redirect to="/login" />
@@ -183,7 +161,6 @@ const mapStateToProps = (state) => {
     return { 
         username: state.auth.username,
         product: state.selectedFlight,
-        product1: state.searchList
     }
 }
 

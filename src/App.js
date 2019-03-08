@@ -7,7 +7,6 @@ import Cookies from 'universal-cookie';
 import { keepLogin, cookieChecked } from './actions';
 import HeaderTID from './components/HeaderTID';
 import Homepage from './components/Homepage';
-import FooterTID from './components/FooterTID';
 import Register from './components/Register';
 import Login from './components/Login';
 import Verified from './components/Verified';
@@ -25,6 +24,7 @@ import ProductFlightCartDetail from './components/ProductFlightCartDetail';
 import ProductFlightHistory from './components/ProductFlightHistory';
 import ProductFlightTicket from './components/ProductFlightTicket';
 import AdminPaymentFlightManage from './components/AdminPaymentFlightManage';
+import ProductFLightListNF from './components/ProductFlightListNF';
 
 
 
@@ -45,6 +45,7 @@ class App extends Component {
   }
 
   render() {
+    if(this.props.cookie === true) {
       return (
         <div>
           <HeaderTID/>
@@ -62,6 +63,7 @@ class App extends Component {
 
             <Route path="/flighthome" component={ProductFlightHome} />
             <Route path="/flightlist" component={ProductFlightList} />
+            <Route path="/flightlistnotfound" component={ProductFLightListNF} />
             <Route path="/flightdetail" component={ProductFlightDetail} />
             <Route path="/flightdetailpesanan" component={ProductFlighAddToCart} />
             <Route path="/flightcart" component={ProductFlightCart} />
@@ -71,9 +73,10 @@ class App extends Component {
 
             <Route path="/adminpaymenthome" component ={AdminPaymentFlightManage} />
           </div>
-          <FooterTID/>
         </div>
       );
+    }
+      return (<h1>Loading...</h1>)
   }
 }
 

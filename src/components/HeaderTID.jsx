@@ -26,7 +26,7 @@ class HeaderTID extends Component {
                         </div>
                         <nav id="nav-menu-container">
                             <ul className="nav-menu">
-                                <li className="font1"><a href="#hero">Pesanan Saya</a></li>
+                                <li className="font1"><a href="/login">Pesanan Saya</a></li>
                                 {/* <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
                                 
                                     <ul>
@@ -62,7 +62,7 @@ class HeaderTID extends Component {
                                     
                                     </ul>
                                     </li>
-                                    <li className="menu-has-children"><a href="/flighthome">Pesan Tiket Pesawat<i className="fa fa-plane fa-2x" /></a></li>
+                                    <li className="menu-has-children"><a href="/flighthome">Pesan Tiket Pesawat <i className="fa fa-plane fa-2x" /></a></li>
                                 {/* <li className="menu-has-children"><a href="#product">Produk kami <i className="fa fa-chevron-down"/></a>
                                     <ul>
                                         <li><a href="#flight">Hotel</a></li>

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import Cookies from 'universal-cookie';
-import '../supports/css/tabel.css'
+import {
+  Card, CardText, CardGroup, Row, Container, Col
+} from 'reactstrap';
 
 const cookie = new Cookies()
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
@@ -38,54 +41,69 @@ class ProductFlightCart extends Component {
     
 
     renderListCartFlight = () => {
-        var listJSXFlight = this.state.listCart.map((item) => {
-            return (
-                <tr>
-                    <td>{item.id}</td>
-                    <td>{moment(item.tanggal_pesan).format('YYYY-MM-DD, h:mm:ss')}</td>
-                    <td><img src={`http://localhost:1212${item.image}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
-                    <td>{item.code}</td>
-                    <td>{item.departure_city}</td>
-                    <td>{item.arrival_city}</td>
-                    <td>{moment(item.tanggal).format('YYYY-MM-DD, h:mm:ss')}</td>
-                    <td>{item.qty}</td>
-                    <td>{rupiah.format(item.total_harga)}</td>
-                    <td><a href={`/flightcartdetail?order_id=${item.id}&username=${item.username}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a></td>
-                </tr>
-            )
-        })
-        return listJSXFlight;
+      if(this.state.listCart.length !==0){
+        var listJSXCartFlight = this.state.listCart.map((item) => {
+          return (
+            <Col lg="12" style={{ marginTop: "20px" }}>
+            <Card className="card bg-dark" style={{height:130, borderRadius:10}}>
+              <CardGroup style={{marginTop:5, marginBottom:5}}>
+                <CardText>
+                <h3 style={{fontSize:16, paddingLeft:25, color: "#fff"}}>{moment(item.tanggal_pesan).format('MMMM Do YYYY, H:MM:SS a')}</h3>
+                </CardText>
+              </CardGroup>
+              <CardGroup style={{marginTop:5, marginBottom:5}}>
+                <CardText>
+                <Row>
+                  <h3 style={{fontSize:18, paddingLeft:40, color: "#fff" }}>Kode Pesanan: {item.id}</h3>
+                  <h3 style={{fontSize:18, paddingLeft:780, color: "#fff"}}>{rupiah.format(item.total_harga)}</h3>
+                </Row>
+                </CardText>
+              </CardGroup >
+              <CardGroup style={{marginTop:5, marginBottom:5}}>
+                <CardText>
+                <h3 style={{fontSize:18, color: "#fff", paddingLeft:25}}><i className="fa fa-plane"/> {item.departure_city} - {item.arrival_city}</h3>
+                </CardText>
+              </CardGroup>
+              <CardGroup style={{marginTop:5, marginBottom:5}}>
+                <CardText>
+                  <h3 style={{fontSize:16, paddingLeft:25, color: "#fff"}} >{item.nama} ({item.code})</h3>
+                </CardText>
+              </CardGroup>
+              <CardGroup style={{marginTop:5, marginBottom:5}}>
+                <center>
+                <h3 style={{fontSize:16, paddingLeft:500}} ><a href={`/flightcartdetail?order_id=${item.id}&username=${item.username}`} onClick={() => this.onLihatClick(item.id)}>Detail Pesanan</a></h3>
+                </center>
+              </CardGroup>
+            </Card>
+          </Col>
+          )
+      })
+      return listJSXCartFlight;
+      }
+      else if (this.state.listCart.length ===0) {
+        return (
+          <center><div style={{marginTop:50}}>
+          <img src='img/icon.png' alt='images' width={150}/>
+          <h3 fontSize={20}>It's seems that you have no cart transaction!</h3>
+          </div></center>
+        )
+      }
     }
 
     render(){
+      if(this.props.username !== '') {
         return(
-            <div id="hero" className="wow fadeIn" style={{marginTop:"-150px"}}>
-            <div className="hero-container" >
-            <div style={{marginTop:"20px", width:"1200px"}}>
-                        <table className="table-responsive">
-                          <thead className="theadList">
-                            <tr>
-                              <th>No. Order</th>
-                              <th>Tanggal Pemesanan</th>
-                              <th>Image</th>
-                              <th>Kode Penerbangan</th>
-                              <th>Kota Asal</th>
-                              <th>Kota Tujuan</th>
-                              <th>Tanggal Keberangkatan</th>
-                              <th>Jumlah Penumpang</th>
-                              <th>Total Harga</th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody className="tbodyList">
-                            {this.renderListCartFlight()}
-                          </tbody>
-                        </table>
-                      </div>
-
-            </div>
-            </div>
+          <Container>
+          <Card className="card bg-dark" style={{marginTop:100,  borderRadius:5}}>
+            <CardText>
+              <h3 style={{fontSize:20, padding:5, color: "#fff"}}><i className="fa fa-shopping-cart" /> Find your cart and finish transaction here</h3>
+            </CardText>
+          </Card>
+          {this.renderListCartFlight()}
+        </Container>
         )
+      }
+      return <Redirect to='/' />
     }
 }
 
