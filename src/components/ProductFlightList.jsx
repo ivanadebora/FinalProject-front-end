@@ -47,12 +47,79 @@ class ProductFlightList extends Component {
     }
 
     onBtnSearchClick() {
-        var nama = this.refs.maskapaiFilter.refs.tbMaskapaiFilter.value;
-    
-        var arrSearch = this.state.listProductFlight.filter((item) => {
-          return (item.nama.toLowerCase().includes(nama.toLowerCase()))
-        })
-        this.setState({searchListFlight: arrSearch})
+        var params = queryString.parse(this.props.location.search)
+        var departure_city = params.dept_city;
+        var arrival_city = params.arr_city;
+        var tanggal = params.tanggal;
+        var seat_class = params.kelas;
+        var qty = parseInt(params.jumlah_penumpang)
+        var nama = this.refs.filterings.refs.tbfilterings.value;
+        var sortingby = this.refs.sorting.refs.tbsorting.value;
+
+        if(sortingby === 'hargaMax'){
+            axios.post('http://localhost:1212/flight/listsearchmaxprice', {
+                departure_city, arrival_city, tanggal, seat_class, qty
+            })
+            .then((res) => {
+                this.setState({listProductFlight: res.data, searchListFlight: res.data})
+                
+                var arrSearch = this.state.listProductFlight.filter((item) => {
+                    return (item.nama.includes(nama))
+                })
+                this.setState({searchListFlight: arrSearch})
+            })
+            .catch((err) => {
+                console.log (err)
+            })
+        }
+        else if(sortingby === 'hargaMin'){
+            axios.post('http://localhost:1212/flight/listsearchminprice', {
+                departure_city, arrival_city, tanggal, seat_class, qty
+            })
+            .then((res) => {
+                this.setState({listProductFlight: res.data, searchListFlight: res.data})
+                
+                var arrSearch = this.state.listProductFlight.filter((item) => {
+                    return (item.nama.includes(nama))
+                })
+                this.setState({searchListFlight: arrSearch})
+            })
+            .catch((err) => {
+                console.log (err)
+            })
+        }
+        else if(sortingby === 'timeAwal'){
+            axios.post('http://localhost:1212/flight/listsearchtimeawal', {
+                departure_city, arrival_city, tanggal, seat_class, qty
+            })
+            .then((res) => {
+                this.setState({listProductFlight: res.data, searchListFlight: res.data})
+                
+                var arrSearch = this.state.listProductFlight.filter((item) => {
+                    return (item.nama.includes(nama))
+                })
+                this.setState({searchListFlight: arrSearch})
+            })
+            .catch((err) => {
+                console.log (err)
+            })
+        }
+        else if(sortingby === 'timeAkhir'){
+            axios.post('http://localhost:1212/flight/listsearchtimeakhir', {
+                departure_city, arrival_city, tanggal, seat_class, qty
+            })
+            .then((res) => {
+                this.setState({listProductFlight: res.data, searchListFlight: res.data})
+                
+                var arrSearch = this.state.listProductFlight.filter((item) => {
+                    return (item.nama.includes(nama))
+                })
+                this.setState({searchListFlight: arrSearch})
+            })
+            .catch((err) => {
+                console.log (err)
+            })
+        }
     }
 
     onPesanClick = (id) =>{
@@ -76,11 +143,11 @@ class ProductFlightList extends Component {
     }
 
     renderListFlight = () => {
-        var listJSXFlight = this.state.listProductFlight.map((item) => {
+        var listJSXFlight = this.state.searchListFlight.map((item) => {
             return (
                <Col lg="12" style={{ marginTop: "5px", marginBottom:"10px" }}>
                
-               <Card style={{height:120, borderRadius:10}}>
+               <Card style={{height:140, borderRadius:10, border:"2px solid #2abe8d"}}>
                <Row style={{justifyContent: "space-around"}}>
                    <CardText style={{marginTop:30, width:200}}>
                         <img  className="img-responsive" src={`http://localhost:1212${item.image}`} alt={item.nama} style={{height:30}}/>
@@ -122,7 +189,7 @@ class ProductFlightList extends Component {
                         <h5 style={{marginTop: "10px", color:"#000"}}>Filter: </h5>
                         <FormGroup>
                             <h6 style={{marginTop: "10px", color:"#000"}}>Maskapai: </h6>
-                            <Input type="select" name="maskapaiFilter" id="maskapaiFilter" ref="maskapaiFilter" innerRef="tbMaskapaiFilter" style={{width: "150px"}}>
+                            <Input type="select" name="filterings" id="filterings" ref="filterings" innerRef="tbfilterings" style={{width: "150px"}}>
                                 {this.renderMaskapai()}
                             </ Input>
                         </FormGroup>
@@ -132,15 +199,15 @@ class ProductFlightList extends Component {
                         <FormGroup></FormGroup>
                         <Input type="select" name="sorting" id="sorting" ref="sorting" innerRef="tbsorting" style={{width: "250px"}}>
                             <option value="hargaMin" >Harga Terendah</option>
-                            <option value="hargaMax" >Harga Terendah</option>
-                            <option value="timeMax" >Waktu Berangkat Paling Awal</option>
-                            <option value="timeMin" >Waktu Berangkat Paling Akhir</option>
+                            <option value="hargaMax" >Harga Tertinggi</option>
+                            <option value="timeAwal" >Waktu Berangkat Paling Awal</option>
+                            <option value="timeAkhir" >Waktu Berangkat Paling Akhir</option>
                         </ Input>
                     </FormGroup>
                 </Row>
                 <FormGroup style={{marginBottom: "10px"}}>
                     <Row style={{justifyContent:"space-around"}}>
-                        <Button onClick={this.onBtnSearchClick}><i className="fa fa-search fa-2x"  /> Search</Button>
+                        <Button  onClick={this.onBtnSearchClick.bind(this)}><i className="fa fa-search fa-2x"  /> Search</Button>
                         <a href="/flighthome" style={{paddingTop:"15px", color:"#000"}}>Ganti Pencarian</a>
                     </Row>
                 </FormGroup>

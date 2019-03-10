@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import queryString from 'query-string';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {onUserVerified} from '../actions';
+import FooterTID from './FooterTID';
+
 
 class Verified extends Component {
     state = {verified: false, loading: true}
@@ -17,12 +20,6 @@ class Verified extends Component {
         })
         .then((res) => {
             console.log(res.data)
-            const dataUser = {
-                username: res.data.username,
-                role: res.data.role,
-                status: res.data.status
-            };
-            localStorage.setItem('dataUser', dataUser);
             this.props.onUserVerified(res.data);
             this.setState({loading:false, verified:true});
         })
@@ -53,21 +50,31 @@ class Verified extends Component {
         )
     }
     render(){
-        return(
-            <div id="hero" className="wow fadeIn">
-                <div className="hero-container">
-                    <div>
-                        {this.renderContent()}
-                    </div>
-                    <div>
-                        <img src="img/travel2.png" alt="Hero Imgs" width="700px" />
+        if(this.props.username !== '') {
+            return(
+                <div>
+                <div id="hero" className="wow fadeIn">
+                    <div className="hero-container">
+                        <div>
+                            {this.renderContent()}
+                        </div>
+                        <div>
+                            <img src="img/travel2.png" alt="Hero Imgs" width="700px" />
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+                <FooterTID />
+                </div>
+            );
+        }
+        return <Redirect to="/" />
     }
 }
 
+const mapStateToProps = (state) => {
+    return { 
+        username: state.auth.username
+    }
+}
 
-
-export default connect(null, {onUserVerified})(Verified);
+export default connect(mapStateToProps, {onUserVerified})(Verified);

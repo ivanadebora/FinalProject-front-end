@@ -81,13 +81,14 @@ class Register extends Component {
             </section>
         );
       }
-      return <Redirect to="/waitingverification" />
+      return <Redirect to={`/waitingverification?username=${this.props.username}&password=${this.props.password}`} />
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-      username: state.auth.username, 
+      username: state.auth.username,
+      password: state.auth.password, 
       error: state.auth.error,
       loading: state.auth.loading
   };

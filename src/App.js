@@ -13,7 +13,6 @@ import Verified from './components/Verified';
 import WaitingVerification from './components/WaitingVerification';
 import AdminProductHome from './components/AdminProductHome';
 import AdminProductFlightManage from './components/AdminProductFlightManage';
-import AdminProductFlightDashboard from './components/AdminProductFlightDashboard';
 import AdminProductFlightManageMaskapai from './components/AdminProductFlightManageMaskapai';
 import ProductFlightHome from './components/ProductFlightHome';
 import ProductFlightList from './components/ProductFlightList';
@@ -25,6 +24,8 @@ import ProductFlightHistory from './components/ProductFlightHistory';
 import ProductFlightTicket from './components/ProductFlightTicket';
 import AdminPaymentFlightManage from './components/AdminPaymentFlightManage';
 import ProductFLightListNF from './components/ProductFlightListNF';
+import AdminPaymentHome from './components/AdminPaymentHome';
+
 
 
 
@@ -59,7 +60,6 @@ class App extends Component {
             <Route path="/adminproducthome" component={AdminProductHome} />
             <Route path="/managemaskapai" component={AdminProductFlightManageMaskapai} />
             <Route path="/manageflight" component={AdminProductFlightManage} />
-            <Route path="/flightdashboard" component={AdminProductFlightDashboard} />
 
             <Route path="/flighthome" component={ProductFlightHome} />
             <Route path="/flightlist" component={ProductFlightList} />
@@ -71,7 +71,8 @@ class App extends Component {
             <Route path="/flighthistory" component={ProductFlightHistory} />
             <Route path="/flight_ticket" component={ProductFlightTicket} />
 
-            <Route path="/adminpaymenthome" component ={AdminPaymentFlightManage} />
+            <Route path="/adminpaymenthome" component ={AdminPaymentHome} />
+            <Route path="/manageflightpayment" component={AdminPaymentFlightManage} />
           </div>
         </div>
       );

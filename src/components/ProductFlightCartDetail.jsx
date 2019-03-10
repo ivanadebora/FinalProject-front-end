@@ -8,6 +8,7 @@ import {
     Container, Form,
     FormGroup, Row, Input
 } from 'reactstrap';
+import FooterTID from './FooterTID';
 
 
 const cookie = new Cookies();
@@ -127,6 +128,7 @@ class ProductFlightCartDetail extends Component {
             var { passenger1, passenger2, passenger3, passenger4, passenger5, 
                     ktp1, ktp2, ktp3, ktp4, ktp5 } = this.state.listPassenger
                 return(
+                    <div>
                     <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
                         <Form className="form">
                         <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>Detail Pemesanan Tiket Pesawat Anda:</h2></center>
@@ -183,6 +185,8 @@ class ProductFlightCartDetail extends Component {
                         </FormGroup>
                         </Form>
                     </Container>
+                    <FooterTID />
+                    </div>
                 );
             }
             return <Redirect to="/" />

@@ -10,6 +10,7 @@ import {
     Button, Row
 } from 'reactstrap';
 import CarouselFlight from './CarouselFlight';
+import FooterTID from './FooterTID';
 import { onUserSearchFlight, select_flight } from '../actions';
 
 
@@ -94,11 +95,11 @@ class ProductFlightHome extends Component {
                     <FormGroup style={{paddingLeft:"60px"}}>
                         <h5 style={{color:"#000"}}><b>Jumlah Penumpang</b></h5>
                         <Input type="select" name="jumlahSeat" id="jumlahSeat" ref="jumlahSeat" innerRef="tbJumlahSeat" style={{width: "300px"}}>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
                         </ Input>
                         <h5 style={{color:"#000"}}><b>Kelas Penerbangan</b></h5>
                         <Input type="select" name="kelas" id="kelas" ref="kelas" innerRef="tbKelas"style={{width: "300px"}}>
@@ -113,6 +114,7 @@ class ProductFlightHome extends Component {
                 </Container>
                     </div>
                 </div>
+                <FooterTID/>
                </div>
             )
         }

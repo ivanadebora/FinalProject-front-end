@@ -8,6 +8,7 @@ import {
     FormGroup, Row, Card, Button
 } from 'reactstrap';
 import { select_flight } from '../actions'
+import FooterTID from './FooterTID';
 
 
 
@@ -42,6 +43,7 @@ class ProductFlightDetail extends Component {
             return(
                 // <div id="hero" className="wow fadeIn">
                 // <div className="hero-container">
+                <div>
                 <Container style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:70}}>
                     <Form className="form">
                     <center><h2 style={{marginTop: "10px", color:"#000", fontWeight:"bold"}}>Detail Product:</h2></center>
@@ -83,7 +85,8 @@ class ProductFlightDetail extends Component {
                     </Card>
                     </Form>
                 </Container>
-            //     </div>
+                <FooterTID />
+            </div>
             // </div>
             );
         }

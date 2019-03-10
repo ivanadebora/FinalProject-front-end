@@ -44,7 +44,8 @@ export const onUserRegister = ({
                             username: res.data[0].username, 
                             role: res.data[0].role, 
                             email: res.data[0].email, 
-                            status: res.data[0].status
+                            status: res.data[0].status,
+                            password: res.data[0].password
                         }
                     })
                 }
@@ -101,7 +102,8 @@ var loginStart = (dispatch, username, password) => {
                         username: res.data[0].username, 
                         role: res.data[0].role, 
                         email: res.data[0].email, 
-                        status: res.data[0].status
+                        status: res.data[0].status,
+                        password: res.data[0].password
                 }
             })
         } else {

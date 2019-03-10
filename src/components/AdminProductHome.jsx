@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 import {
     TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, Row, Col
 } from 'reactstrap';
-import AdminProductFlightDashboard from './AdminProductFlightDashboard';
+import AdminProductFlightSideBarMenu from './AdminProductFlightSideBarMenu';
 
 const cookie = new Cookies()
 class AdminProductHome extends Component {
@@ -67,7 +67,7 @@ class AdminProductHome extends Component {
           <Col lg="12">
               <Card body>
                 <CardTitle style={{textAlign: "center", padding: "20px",fontSize: "20px"}}>Manage Page Flight</CardTitle>
-                <AdminProductFlightDashboard />
+                <AdminProductFlightSideBarMenu />
               </Card>
             </Col>
           </Row>

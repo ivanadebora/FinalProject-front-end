@@ -8,6 +8,7 @@ import {
     FormGroup, Row, Input
 } from 'reactstrap';
 import { select_flight } from '../actions'
+import FooterTID from './FooterTID';
 
 
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
@@ -364,6 +365,7 @@ class ProductFlightAddToCart extends Component {
             arrival_city, arrival_time, arrival_terminal, description, harga, qty, username
         } = this.props.product
             return(
+                <div>
                 <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
                     <Form className="form">
                     <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>Detail Pemesanan Tiket Pesawat Anda:</h2></center>
@@ -412,6 +414,8 @@ class ProductFlightAddToCart extends Component {
                     </FormGroup>
                     </Form>
                 </Container>
+                <FooterTID />
+                </div>
             );
     }
 }

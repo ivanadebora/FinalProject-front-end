@@ -9,6 +9,7 @@ import {
     Container, Form,
     FormGroup, Row
 } from 'reactstrap';
+import FooterTID from './FooterTID';
 
 
 const cookie = new Cookies();
@@ -50,6 +51,7 @@ class ProductFlightTicket extends Component {
         var newUser = cookie.get('dataUser')
         if (newUser !== undefined) {
             return(
+                <div>
                 <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
                     <Form className="form">
                     <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>Detail Pemesanan Tiket Pesawat Anda:</h2></center>
@@ -102,6 +104,8 @@ class ProductFlightTicket extends Component {
                     </FormGroup>
                     </Form>
                 </Container>
+                <FooterTID />
+                </div>
             );
         }
         else {

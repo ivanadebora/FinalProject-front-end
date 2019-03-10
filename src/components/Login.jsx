@@ -72,7 +72,7 @@ class Login extends Component {
       )
     }
     else if (this.props.username !== '' && this.props.status === 'Unverified') {
-      return <Redirect to="/waitingverification" />
+      return <Redirect to={`/waitingverification?username=${this.props.username}&password=${this.props.password}`} />
     }
     else if (this.props.username !== '' && this.props.status === 'Verified' && this.props.role === 'User') {
       return <Redirect to="/"/>
@@ -87,9 +87,10 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.auth)
+  console.log(state.auth.password)
   return {
       username: state.auth.username,
+      password: state.auth.password,
       status: state.auth.status,
       role: state.auth.role, 
       error: state.auth.error,

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import moment from 'moment';
+import AdminPaymentFlightSideBarMenu from './AdminPaymentFlightSideBarMenu';
 
 
 
@@ -55,6 +56,7 @@ class AdminPaymentFlightManage extends Component {
                 
                 <tr key={item.id}>
                     <td>{item.id}</td>
+                    <td>{item.username}</td>
                     <td>{moment(item.tanggal_pesan).format('YYYY-MM-DD h:mm:ss')}</td>
                     <td>{moment(item.tanggal_transaksi).format('YYYY-MM-DD h:mm:ss')}</td>
                     <td><img src={`http://localhost:1212${item.image_maskapai}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
@@ -63,23 +65,52 @@ class AdminPaymentFlightManage extends Component {
                     <td>{item.arrival_city}</td>
                     <td>{moment(item.tanggal).format('YYYY-MM-DD h:mm:ss')}</td>
                     <td>{item.qty}</td>
+                    <td>{rupiah.format(item.harga)}</td>
                     <td>{rupiah.format(item.total_harga)}</td>
                     <td><img src={`http://localhost:1212${item.image}`} alt={item.id} style={{margin: 'auto', height: '30px'}}/></td>
-                    <td><select className="form-control" name="select" ref="updateStatus" defaultValue={item.status_transaksi}>
+                    <td><select className="custom-select" id="inputGroupSelect01" name="select" ref="updateStatus" defaultValue={item.status_transaksi}>
                         <option value="Menunggu Persetujuan Pembayaran">Menunggu Persetujuan Pembayaran</option>
                         <option value="Pembayaran Berhasil">Pembayaran Berhasil</option>
                         <option value="Pembayaran Ditolak">Pembayaran Ditolak</option></select>
                     </td>
-                    <td><input type="button" className="btnTable btn-primary" value="Cancel" onClick={() => this.setState({ idSelectedtoEdit: 0 })} /></td>
-                    <td><input type="button" className="btnTable btn-success" value="Update" onClick={() => this.onBtnUpdateClick(item.id)} /></td>
+                    <td><table className="table table-borderless table-sm">
+                    <center>
+                    <button className="btn btn-success"
+                        onClick={() => this.onBtnUpdateClick(item.id)} style={{borderRadius:5}}>
+                        <i className="fa fa-save"></i>
+                    </button>
+                    &nbsp;
+                    <button className="btn btn-secondary"
+                        onClick={() => this.setState({ idSelectedtoEdit: 0 })} style={{borderRadius:5}}>
+                        <i className="fa fa-times"></i>
+                    </button>
+                    </center>
+                </table></td>
+                <td><table className="table table-borderless table-sm">
+                <tr>
+                    <td>
+                    <button className="btn btn-success" 
+                        onClick="" style={{borderRadius:5}}>
+                        <i className="fa fa-envelope"></i> Accepted Mail
+                    </button>
+                    </td>
+                    <td>
+                    <button className="btn btn-danger" 
+                        onClick="" style={{borderRadius:5}}>
+                        <i className="fa fa-envelope"></i> Denied Mail
+                    </button>
+                    </td>
+                </tr>
+            </table></td>
                 </tr>
             )
             }
             return(
                 <tr key={item.id}>
                 <td>{item.id}</td>
-                <td>{moment(item.tanggal_pesan).format('YYYY/MM/DD, h:mm:ss a')}</td>
-                <td>{moment(item.tanggal_transaksi).format('YYYY/MM/DD, h:mm:ss a')}</td>
+                <td>{item.username}</td>
+                <td>{moment(item.tanggal_pesan).format('YYYY/MM/DD, h:mm:ss')}</td>
+                <td>{moment(item.tanggal_transaksi).format('YYYY/MM/DD, h:mm:ss')}</td>
                 <td><img src={`http://localhost:1212${item.image_maskapai}`} alt={item.nama} style={{margin: 'auto', height: '30px'}}/></td>
                 <td>{item.code}</td>
                 <td>{item.departure_city}</td>
@@ -90,8 +121,32 @@ class AdminPaymentFlightManage extends Component {
                 <td>{rupiah.format(item.total_harga)}</td>
                 <td><img src={`http://localhost:1212${item.image}`} alt={item.id} style={{margin: 'auto', height: '30px'}}/></td>
                 <td>{item.status_transaksi}</td>
-                <td><input type="button" className="btnTable btn-success" value="Edit"  onClick={() => this.setState({idSelectedtoEdit:item.id})}  /></td>
-                <td></td>
+                <td><table className="table table-borderless table-sm">
+                <tr>
+                    <td>
+                    <button className="btn btn-info" 
+                        onClick={() => this.setState({idSelectedtoEdit:item.id})} style={{borderRadius:5}}>
+                        <i className="fa fa-edit"></i>
+                    </button>
+                    </td>
+                </tr>
+            </table></td>
+                <td><table className="table table-borderless table-sm">
+                <tr>
+                    <td>
+                    <button className="btn btn-success" 
+                        onClick="" style={{borderRadius:5}}>
+                        <i className="fa fa-envelope"></i> Accepted Mail
+                    </button>
+                    </td>
+                    <td>
+                    <button className="btn btn-danger" 
+                        onClick="" style={{borderRadius:5}}>
+                        <i className="fa fa-envelope"></i> Denied Mail
+                    </button>
+                    </td>
+                </tr>
+            </table></td>
             </tr>
             )
         })
@@ -102,41 +157,48 @@ class AdminPaymentFlightManage extends Component {
       var newRole = cookie.get('dataRole')
       if (newRole === "AdminPembayaran"){
         return(
-          <div id="hero" className="wow fadeIn">
-          <div className="container">
-            <div style={{ marginTop: "40px",fontSize: "16px"}}>
-              <style>{"tr{border: hidden;}"}</style>
-                <div className="row">
-                  <div className="col-lg-12" style={{ paddingLeft:"0px", width: "100%" }}>
-                      <table className="table-responsive">
-                        <thead className="theadList">
-                          <tr>
-                            <th>ID</th>
-                            <th>Tanggal Pemesanan</th>
-                            <th>Tanggal Konfirmasi</th>
-                            <th>Maskapai</th>
-                            <th>Kode Penerbangan</th>
-                            <th>Kota Asal</th>
-                            <th>Kota Tujuan</th>
-                            <th>Tanggal</th>
-                            <th>Jumlah Penumpang</th>
-                            <th>Harga/pax</th>
-                            <th>Total Pembayaran</th>
-                            <th>Bukti</th>
-                            <th>Status</th>
-                            <th></th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody className="tbodyList">
-                          {this.renderListTransFlight()}
-                        </tbody>
+          <div style={{ fontSize: "13px", marginTop:70, marginLeft:10, marginRight:10 }}>
+                <div style={{ padding: "20px" }}>
+                    <div className="row">
+                        <div>
+                            <AdminPaymentFlightSideBarMenu />
+                        </div>
+                        <div style={{ padding: "20px" }}>
+                        <h2>Manage Flight Transaction</h2>
+                        <br/>
+                        <div style={{ fontSize: "13px" }} className="card shadow p-3 mb-5 bg-white rounded">
+                    <div className="table-responsive-lg">
+                        <table className="table table-bordered table-hover">
+                            <thead style={{backgroundColor:"#0a0851"}}>
+                                <tr>
+                                    <th style={{color:"#fff"}}><center>ID Transaksi</center></th>
+                                    <th style={{color:"#fff"}}><center>Username</center></th>
+                                    <th style={{color:"#fff", width:200}}><center>Tanggal Pemesanan</center></th>
+                                    <th style={{color:"#fff"}}><center>Tanggal Konfirmasi</center></th>
+                                    <th style={{color:"#fff"}}><center>Maskapai</center></th>
+                                    <th style={{color:"#fff"}}><center>Kode Penerbangan</center></th>
+                                    <th style={{color:"#fff"}}><center>Kota Asal</center></th>
+                                    <th style={{color:"#fff"}}><center>Kota Tujuan</center></th>
+                                    <th style={{color:"#fff"}}><center>Tanggal</center></th>
+                                    <th style={{color:"#fff"}}><center>Jumlah Penumpang</center></th>
+                                    <th style={{color:"#fff"}}><center>Harga/pax</center></th>
+                                    <th style={{color:"#fff"}}><center>Total Pembayaran</center></th>
+                                    <th style={{color:"#fff"}}><center>Bukti Pembayaran</center></th>
+                                    <th style={{color:"#fff"}}><center>Status</center></th>
+                                    <th style={{color:"#fff"}}><center>Action</center></th>
+                                    <th style={{color:"#fff"}}><center>Kirim Email</center></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {this.renderListTransFlight()}
+                            </tbody>
                         </table>
                     </div>
-                  </div>
                 </div>
-              </div>
-            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
       )
       }
         return <Redirect to="/" />

@@ -8,7 +8,7 @@ import {
 
 
 
-const INITIAL_STATE = {username: '', role: '', email: '', status: '', error: '', loading: false, cookie: false};
+const INITIAL_STATE = {username: '', role: '', password: '', email: '', status: '', error: '', loading: false, cookie: false};
 
 
 export default (state = INITIAL_STATE, action) => {

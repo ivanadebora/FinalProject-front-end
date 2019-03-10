@@ -48,7 +48,7 @@ class ProductFlightHistory extends Component {
                 <Card className="card bg-dark" style={{height:130, borderRadius:10}}>
                   <CardGroup style={{marginTop:5, marginBottom:5}}>
                     <CardText>
-                    <h3 style={{fontSize:16, paddingLeft:25, color: "#fff"}}>{moment(item.tanggal_konfirmasi).format('MMMM Do YYYY, H:MM:SS a')}</h3>
+                    <h3 style={{fontSize:16, paddingLeft:25, color: "#fff"}}>{moment(item.tanggal_konfirmasi).format('MMMM Do YYYY, H:MM:SS')}</h3>
                     </CardText>
                   </CardGroup>
                   <CardGroup style={{marginTop:5, marginBottom:5}}>
