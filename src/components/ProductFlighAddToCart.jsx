@@ -56,9 +56,12 @@ class ProductFlightAddToCart extends Component {
                     departure_city: this.props.product.departure_city,
                     departure_time: this.props.product.departure_time,
                     departure_terminal: this.props.product.departure_terminal,
+                    departure_airport: this.props.product.departure_airport,
+                    arrival_airport: this.props.product.arrival_airport,
                     arrival_city: this.props.product.arrival_city,
                     arrival_time: this.props.product.arrival_time,
-                    arrival_terminal: this.props.product.arrival_terminal
+                    arrival_terminal: this.props.product.arrival_terminal,
+                    description: this.props.product.description
                 })
                 .then((res) => {
                     console.log(res)
@@ -97,9 +100,12 @@ class ProductFlightAddToCart extends Component {
                     departure_city: this.props.product.departure_city,
                     departure_time: this.props.product.departure_time,
                     departure_terminal: this.props.product.departure_terminal,
+                    departure_airport: this.props.product.departure_airport,
+                    arrival_airport: this.props.product.arrival_airport,
                     arrival_city: this.props.product.arrival_city,
                     arrival_time: this.props.product.arrival_time,
-                    arrival_terminal: this.props.product.arrival_terminal
+                    arrival_terminal: this.props.product.arrival_terminal,
+                    description: this.props.product.description
                 })
                 .then((res) => {
                     console.log(res)
@@ -140,9 +146,12 @@ class ProductFlightAddToCart extends Component {
                     departure_city: this.props.product.departure_city,
                     departure_time: this.props.product.departure_time,
                     departure_terminal: this.props.product.departure_terminal,
+                    departure_airport: this.props.product.departure_airport,
+                    arrival_airport: this.props.product.arrival_airport,
                     arrival_city: this.props.product.arrival_city,
                     arrival_time: this.props.product.arrival_time,
-                    arrival_terminal: this.props.product.arrival_terminal
+                    arrival_terminal: this.props.product.arrival_terminal,
+                    description: this.props.product.description
                 })
                 .then((res) => {
                     console.log(res)
@@ -185,9 +194,12 @@ class ProductFlightAddToCart extends Component {
                     departure_city: this.props.product.departure_city,
                     departure_time: this.props.product.departure_time,
                     departure_terminal: this.props.product.departure_terminal,
+                    departure_airport: this.props.product.departure_airport,
+                    arrival_airport: this.props.product.arrival_airport,
                     arrival_city: this.props.product.arrival_city,
                     arrival_time: this.props.product.arrival_time,
-                    arrival_terminal: this.props.product.arrival_terminal
+                    arrival_terminal: this.props.product.arrival_terminal,
+                    description: this.props.product.description
                 })
                 .then((res) => {
                     console.log(res)
@@ -232,9 +244,13 @@ class ProductFlightAddToCart extends Component {
                     departure_city: this.props.product.departure_city,
                     departure_time: this.props.product.departure_time,
                     departure_terminal: this.props.product.departure_terminal,
+                    departure_airport: this.props.product.departure_airport,
+                    arrival_airport: this.props.product.arrival_airport,
                     arrival_city: this.props.product.arrival_city,
                     arrival_time: this.props.product.arrival_time,
-                    arrival_terminal: this.props.product.arrival_terminal
+                    arrival_terminal: this.props.product.arrival_terminal,
+                    description: this.props.product.description
+                    
                 })
                 .then((res) => {
                     console.log(res)
@@ -361,7 +377,7 @@ class ProductFlightAddToCart extends Component {
 
     render(){
         var { image, nama, code, seat_class, tanggal,
-            departure_city, departure_time, departure_terminal,
+            departure_city, departure_time, departure_terminal, departure_airport, arrival_airport,
             arrival_city, arrival_time, arrival_terminal, description, harga, qty, username
         } = this.props.product
             return(
@@ -378,28 +394,30 @@ class ProductFlightAddToCart extends Component {
                     <Row style={{justifyContent: "space-around"}}>
                     <FormGroup className="col-lg-3">
                         <img src={`http://localhost:1212${image}`} alt={nama} style={{width:"100px"}}/>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{code}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000"}}>{seat_class}</h3>
+                        <h3 style={{fontSize:"16px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold"}}>{code}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000"}}>{seat_class}</h3>
                     </FormGroup>
                     <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"40px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>sampai</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
+                        <br />
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", paddingLeft:20}}><i className="fa fa-arrow-down"/></h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
                     </FormGroup>
                     <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"30px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>dari:</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_city} ({departure_terminal})</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>tujuan:</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_city} ({arrival_terminal})</h3>
+                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>{departure_city}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{departure_airport} ({departure_terminal})</h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>to:</h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>{arrival_city}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{arrival_airport} ({arrival_terminal})</h3>
                     </FormGroup>
                     <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"-100px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Description</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{description}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Description</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{description}</h3>
                     </FormGroup>
                     </Row>
                     <FormGroup></FormGroup>

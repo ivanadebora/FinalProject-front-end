@@ -14,6 +14,8 @@ const INITIAL_STATE = {
     arrival_time: '',
     departure_terminal: '',
     arrival_terminal: '',
+    departure_airport: '',
+    arrival_airport: '',
     seat_class: '',
     harga: 0, 
     description: '',

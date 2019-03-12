@@ -44,8 +44,8 @@ class ProductFlightTicket extends Component {
 
     render(){
         var {username, image_maskapai, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan, status_transaksi,
-                departure_city, departure_terminal, departure_time, 
-                arrival_city, arrival_terminal, arrival_time} = this.state.listHistory
+                departure_city, departure_terminal, departure_time, departure_airport, arrival_airport, kode_booking,
+                arrival_city, arrival_terminal, arrival_time, description} = this.state.listHistory
         var { passenger1, passenger2, passenger3, passenger4, passenger5, 
                 ktp1, ktp2, ktp3, ktp4, ktp5 } = this.state.listPassenger
         var newUser = cookie.get('dataUser')
@@ -54,36 +54,43 @@ class ProductFlightTicket extends Component {
                 <div>
                 <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
                     <Form className="form">
-                    <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>Detail Pemesanan Tiket Pesawat Anda:</h2></center>
+                    <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>E-Tickets:</h2></center>
                     <FormGroup></FormGroup>
                     <FormGroup>
                         <FormGroup>
+                            <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Kode Booking: {kode_booking}</h3>
                             <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Pemesan: {username}</h3>
                             <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Tanggal Pemesanan: {moment(tanggal_pesan).format('Do MMMM YYYY, h:mm:ss')}</h3>
                             <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Status: {status_transaksi}</h3>
                         </FormGroup>
                     </FormGroup>
                     <Row style={{justifyContent: "space-around"}}>
-                    <FormGroup className="col-lg-4">
-                        <img src={`http://localhost:1212${image_maskapai}`} alt={nama} style={{width:"100px"}}/>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{code}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000"}}>{seat_class}</h3>
+                    <FormGroup className="col-lg-3">
+                        <img src={`http://localhost:1212${image_maskapai}`} alt={nama} style={{width:"130px"}}/>
+                        <h3 style={{fontSize:"16px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold"}}>{code}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000"}}>{seat_class}</h3>
                     </FormGroup>
-                    <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"40px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>sampai</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
+                    <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"40px"}}>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
+                        <br />
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", paddingLeft:20}}><i className="fa fa-arrow-down"/></h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
                     </FormGroup>
-                    <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"30px"}}>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>dari:</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_city} ({departure_terminal})</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>tujuan:</h3>
-                        <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_city} ({arrival_terminal})</h3>
+                    <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"30px"}}>
+                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>{departure_city}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{departure_airport} ({departure_terminal})</h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>to:</h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>{arrival_city}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{arrival_airport} ({arrival_terminal})</h3>
+                    </FormGroup>
+                    <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"-100px"}}>
+                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Description</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{description}</h3>
                     </FormGroup>
                     </Row>
                     <FormGroup></FormGroup>

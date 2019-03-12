@@ -143,40 +143,53 @@ class ProductFlightList extends Component {
     }
 
     renderListFlight = () => {
-        var listJSXFlight = this.state.searchListFlight.map((item) => {
-            return (
-               <Col lg="12" style={{ marginTop: "5px", marginBottom:"10px" }}>
-               
-               <Card style={{height:140, borderRadius:10, border:"2px solid #2abe8d"}}>
-               <Row style={{justifyContent: "space-around"}}>
-                   <CardText style={{marginTop:30, width:200}}>
-                        <img  className="img-responsive" src={`http://localhost:1212${item.image}`} alt={item.nama} style={{height:30}}/>
-                        <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.nama}</h3>
-                        <p>{item.code}</p>
-                    </CardText>
-                    <CardText style={{marginTop:30}}>
-                        <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.departure_city}</h3>
-                        <p>{item.departure_time}</p>
-                    </CardText>
-                    <CardText style={{marginTop:20}}>
-                        <br/>
-                        <i className="fa fa-chevron-right"/><i className="fa fa-chevron-right"/><i className="fa fa-chevron-right"/>
-                    </CardText>
-                    <CardText style={{marginTop:30}}>
-                        <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.arrival_city}</h3>
-                        <p>{item.arrival_time}</p>
-                    </CardText>
-                    <CardText style={{marginTop:30}}>
-                        <h3 style={{fontSize:16, fontWeight:'bold', color:"#ef4d13"}}>{rupiah.format(item.harga)}</h3>
-                        <Button className="btn btn-success" href={`/flightdetailpesanan?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onPesanClick(item.id)}>Pesan</Button><br/>
-                        <a href={`/flightdetail?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a>
-                    </CardText>
-                </Row>
-               </Card>
-               </Col>
-            )
-        })
-        return listJSXFlight;
+        if(this.state.searchListFlight.length !==0){
+            var listJSXFlight = this.state.searchListFlight.map((item) => {
+                return (
+                    <Col lg="12" style={{ marginTop: "5px", marginBottom:"10px" }}>
+                    
+                    <Card style={{height:140, borderRadius:10, border:"2px solid #2abe8d"}}>
+                    <Row style={{justifyContent: "space-around"}}>
+                        <CardText style={{marginTop:30, width:200}}>
+                            <img  className="img-responsive" src={`http://localhost:1212${item.image}`} alt={item.nama} style={{height:30}}/>
+                            <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.nama}</h3>
+                            <p>{item.code}</p>
+                        </CardText>
+                        <CardText style={{marginTop:30}}>
+                            <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.departure_city}</h3>
+                            <p>{item.departure_time}</p>
+                        </CardText>
+                        <CardText style={{marginTop:20}}>
+                            <br/>
+                            <i className="fa fa-chevron-right"/><i className="fa fa-chevron-right"/><i className="fa fa-chevron-right"/>
+                        </CardText>
+                        <CardText style={{marginTop:30}}>
+                            <h3 style={{fontSize:16, fontWeight:'bold'}}>{item.arrival_city}</h3>
+                            <p>{item.arrival_time}</p>
+                        </CardText>
+                        <CardText style={{marginTop:30}}>
+                            <h3 style={{fontSize:16, fontWeight:'bold', color:"#ef4d13"}}>{rupiah.format(item.harga)}</h3>
+                            <Button className="btn btn-success" href={`/flightdetailpesanan?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onPesanClick(item.id)}>Pesan</Button><br/>
+                            <a href={`/flightdetail?productId=${this.props.product.id}&username=${this.props.product.username}&qty=${this.props.product.qty}`} onClick={() => this.onLihatClick(item.id)}>Lihat Detail</a>
+                        </CardText>
+                    </Row>
+                    </Card>
+                    </Col>
+                )
+            })
+            return listJSXFlight;
+            }
+            else if (this.state.searchListFlight.length ===0) {
+                return (
+                    <center><Col lg="12" style={{ marginTop: "5px", marginBottom:"10px" }}>
+                    <Card style={{height:200, borderRadius:10, border:"2px solid #2abe8d"}}>
+                    <img src='img/404.png' alt='images' width={150}/>
+                    <h3 fontSize={20}>Oops, your flight could not be found!</h3>
+                    </Card>
+                    </Col></center>
+                  
+                )
+              }
     }
 
     render(){
@@ -190,6 +203,7 @@ class ProductFlightList extends Component {
                         <FormGroup>
                             <h6 style={{marginTop: "10px", color:"#000"}}>Maskapai: </h6>
                             <Input type="select" name="filterings" id="filterings" ref="filterings" innerRef="tbfilterings" style={{width: "150px"}}>
+                                <option value=''>All</option>
                                 {this.renderMaskapai()}
                             </ Input>
                         </FormGroup>

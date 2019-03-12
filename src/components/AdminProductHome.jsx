@@ -33,7 +33,7 @@ class AdminProductHome extends Component {
       if (newRole === 'AdminProduct') {
         return(
           <div id="hero" className="wow fadeIn">
-              <div className="container">
+              <div className="container-fluid">
               <div className="tab-admin">
       <Nav tabs >
         <NavItem>

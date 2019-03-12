@@ -58,6 +58,7 @@ class ProductFlightCartDetail extends Component {
             }
       
             var data = {
+                kode_booking: `${this.state.listCart.flight_productId}${Date.now()}`,
                 username: this.state.listCart.username,
                 tanggal_pesan: moment(this.state.listCart.tanggal_pesan).format('YYYY-MM-DD h:mm:ss'),
                 tanggal_konfirmasi: moment(new Date()).format('YYYY-MM-DD h:mm:ss'),
@@ -73,9 +74,12 @@ class ProductFlightCartDetail extends Component {
                 departure_city:  this.state.listCart.departure_city,
                 departure_terminal:  this.state.listCart.departure_terminal,
                 departure_time:  this.state.listCart.departure_time,
+                departure_airport:  this.state.listCart.departure_airport,
+                arrival_airport:  this.state.listCart.arrival_airport,
                 arrival_city:  this.state.listCart.arrival_city,
                 arrival_terminal:  this.state.listCart.arrival_terminal,
                 arrival_time:  this.state.listCart.arrival_time,
+                description: this.state.listCart.description,
                 status_transaksi: 'Menunggu Persetujuan Pembayaran'
             }
       
@@ -123,8 +127,8 @@ class ProductFlightCartDetail extends Component {
         if (newUser !== undefined) {
             if(this.state.listCart !== null) {
                 var {username, image, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan,
-                    departure_city, departure_terminal, departure_time, 
-                    arrival_city, arrival_terminal, arrival_time} = this.state.listCart
+                    departure_city, departure_terminal, departure_time, departure_airport,
+                    arrival_city, arrival_terminal, arrival_time, arrival_airport, description} = this.state.listCart
             var { passenger1, passenger2, passenger3, passenger4, passenger5, 
                     ktp1, ktp2, ktp3, ktp4, ktp5 } = this.state.listPassenger
                 return(
@@ -140,27 +144,33 @@ class ProductFlightCartDetail extends Component {
                             </FormGroup>
                         </FormGroup>
                         <Row style={{justifyContent: "space-around"}}>
-                        <FormGroup className="col-lg-4">
-                            <img src={`http://localhost:1212${image}`} alt={nama} style={{width:"100px"}}/>
-                            <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", fontWeight:"bold"}}>{code}</h3>
-                            <h3 style={{fontSize:"12px", color:"#000"}}>{seat_class}</h3>
-                        </FormGroup>
-                        <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"40px"}}>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>sampai</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
-                        </FormGroup>
-                        <FormGroup className="col-lg-4" style={{marginTop:"10px", paddingLeft:"30px"}}>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>dari:</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{departure_city} ({departure_terminal})</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", paddingLeft:"20px"}}>|</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left", fontWeight:"bold"}}>tujuan:</h3>
-                            <h3 style={{fontSize:"12px", color:"#000", textAlign:"left"}}>{arrival_city} ({arrival_terminal})</h3>
-                        </FormGroup>
+                        <FormGroup className="col-lg-3">
+                        <img src={`http://localhost:1212${image}`} alt={nama} style={{width:"100px"}}/>
+                        <h3 style={{fontSize:"16px", color:"#000", fontWeight:"bold"}}>{nama}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold"}}>{code}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000"}}>{seat_class}</h3>
+                    </FormGroup>
+                    <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"40px"}}>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{moment(tanggal).format('dddd, DD MMMM YYYY')}</h3>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{departure_time}</h3>
+                        <br />
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", paddingLeft:20}}><i className="fa fa-arrow-down"/></h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{arrival_time}</h3>
+                    </FormGroup>
+                    <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"30px"}}>
+                    <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>{departure_city}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{departure_airport} ({departure_terminal})</h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>to:</h3>
+                        <br/>
+                        <h3 style={{fontSize:"14px", color:"#000", textAlign:"left", fontWeight:'bold'}}>{arrival_city}</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{arrival_airport} ({arrival_terminal})</h3>
+                    </FormGroup>
+                    <FormGroup className="col-lg-3" style={{marginTop:"10px", paddingLeft:"-100px"}}>
+                        <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"left"}}>Description</h3>
+                        <h3 style={{fontSize:"13px", color:"#000", textAlign:"left"}}>{description}</h3>
+                    </FormGroup>
                         </Row>
                         <FormGroup></FormGroup>
                         <FormGroup>

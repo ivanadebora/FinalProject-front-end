@@ -54,7 +54,7 @@ class ProductFlightHistory extends Component {
                   <CardGroup style={{marginTop:5, marginBottom:5}}>
                     <CardText>
                     <Row>
-                      <h3 style={{fontSize:18, paddingLeft:40, color: "#fff" }}>Kode Booking: {item.id}</h3>
+                      <h3 style={{fontSize:18, paddingLeft:40, color: "#fff" }}>Kode Booking: {item.kode_booking}</h3>
                       <h3 style={{fontSize:18, paddingLeft:780, color: "#fff"}}>{rupiah.format(item.total_harga)}</h3>
                     </Row>
                     </CardText>

@@ -12,8 +12,6 @@ import Login from './components/Login';
 import Verified from './components/Verified';
 import WaitingVerification from './components/WaitingVerification';
 import AdminProductHome from './components/AdminProductHome';
-import AdminProductFlightManage from './components/AdminProductFlightManage';
-import AdminProductFlightManageMaskapai from './components/AdminProductFlightManageMaskapai';
 import ProductFlightHome from './components/ProductFlightHome';
 import ProductFlightList from './components/ProductFlightList';
 import ProductFlightDetail from './components/ProductFlightDetail';
@@ -22,9 +20,11 @@ import ProductFlightCart from './components/ProductFlightCart';
 import ProductFlightCartDetail from './components/ProductFlightCartDetail';
 import ProductFlightHistory from './components/ProductFlightHistory';
 import ProductFlightTicket from './components/ProductFlightTicket';
-import AdminPaymentFlightManage from './components/AdminPaymentFlightManage';
 import ProductFLightListNF from './components/ProductFlightListNF';
 import AdminPaymentHome from './components/AdminPaymentHome';
+import AdminPaymentFlightManageFull from './components/AdminPaymentFlightManageFull';
+import AdminProductFlightManageFull from './components/AdminProductFlightManageFull';
+import AdminProductFlightManageMaskapaiFull from './components/AdminProductFlightManageMaskapaiFull';
 
 
 
@@ -58,8 +58,8 @@ class App extends Component {
             <Route path="/waitingverification" component={WaitingVerification} />
 
             <Route path="/adminproducthome" component={AdminProductHome} />
-            <Route path="/managemaskapai" component={AdminProductFlightManageMaskapai} />
-            <Route path="/manageflight" component={AdminProductFlightManage} />
+            <Route path="/managemaskapai" component={AdminProductFlightManageMaskapaiFull} />
+            <Route path="/manageflight" component={AdminProductFlightManageFull} />
 
             <Route path="/flighthome" component={ProductFlightHome} />
             <Route path="/flightlist" component={ProductFlightList} />
@@ -72,7 +72,7 @@ class App extends Component {
             <Route path="/flight_ticket" component={ProductFlightTicket} />
 
             <Route path="/adminpaymenthome" component ={AdminPaymentHome} />
-            <Route path="/manageflightpayment" component={AdminPaymentFlightManage} />
+            <Route path="/manageflightpayment" component={AdminPaymentFlightManageFull} />
           </div>
         </div>
       );
