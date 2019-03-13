@@ -4,16 +4,18 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import Cookies from 'universal-cookie';
+import Pagination from 'react-js-pagination';
 import {
   Card, CardText, CardGroup, Row, Container, Col
 } from 'reactstrap';
+import FooterTID from './FooterTID';
 
 const cookie = new Cookies()
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
 
 class ProductFlightCart extends Component {
 
-    state = {listCart: [], idSelectedItem: 0}
+    state = {listCart: [], idSelectedItem: 0, activePage: 1, itemPerPage: 3}
 
     componentDidMount() {
       this.getListCart();
@@ -34,6 +36,11 @@ class ProductFlightCart extends Component {
       })
     }
 
+    handlePageChange(pageNumber) {
+      console.log(`active page is ${pageNumber}`);
+      this.setState({activePage: pageNumber});
+  }
+
     onLihatClick = (id) => {
       this.setState({idSelectedItem:id})
       console.log(id)
@@ -42,7 +49,10 @@ class ProductFlightCart extends Component {
 
     renderListCartFlight = () => {
       if(this.state.listCart.length !==0){
-        var listJSXCartFlight = this.state.listCart.map((item) => {
+        var indexOfLastTodo = this.state.activePage * this.state.itemPerPage;
+        var indexOfFirstTodo = indexOfLastTodo - this.state.itemPerPage;
+        var renderedProjects =  this.state.listCart.slice(indexOfFirstTodo, indexOfLastTodo);
+        var listJSXCartFlight = renderedProjects.map((item) => {
           return (
             <Col lg="12" style={{ marginTop: "20px" }}>
             <Card className="card bg-dark" style={{height:130, borderRadius:10}}>
@@ -93,6 +103,7 @@ class ProductFlightCart extends Component {
     render(){
       if(this.props.username !== '') {
         return(
+          <div>
           <Container>
           <Card className="card bg-dark" style={{marginTop:100,  borderRadius:5}}>
             <CardText>
@@ -100,7 +111,16 @@ class ProductFlightCart extends Component {
             </CardText>
           </Card>
           {this.renderListCartFlight()}
+          <center><Pagination
+                            activePage={this.state.activePage}
+                            itemsCountPerPage={this.state.itemPerPage}
+                            totalItemsCount={this.state.listCart.length}
+                            pageRangeDisplayed={3}
+                            onChange={this.handlePageChange.bind(this)}
+                        /></center>
         </Container>
+        <FooterTID />
+        </div>
         )
       }
       return <Redirect to='/' />

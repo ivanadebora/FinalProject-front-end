@@ -3,6 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import queryString from 'query-string';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 import {
     Container, Form,
     FormGroup, Row, Input
@@ -38,6 +39,7 @@ class ProductFlightAddToCart extends Component {
         })
     }
 
+
     onBtnCheckOutClick = () => {
         if (this.state.jmlh_passenger === 1){
             if(window.confirm('Are you sure to Checkout?')){
@@ -72,7 +74,12 @@ class ProductFlightAddToCart extends Component {
                     })
                     .then((res) => {
                         console.log(res.data)
-                        alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        // alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        Swal.fire(
+                            'Pesanan Anda berhasil dibuat!',
+                            'Silahkan upload bukti di keranjang belanja!',
+                            'success'
+                          )
                     })
                     .catch((err) => {
                         console.log(err)
@@ -118,7 +125,12 @@ class ProductFlightAddToCart extends Component {
                     })
                     .then((res) => {
                         console.log(res.data)
-                        alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        // alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        Swal.fire(
+                            'Pesanan Anda berhasil dibuat!',
+                            'Silahkan upload bukti di keranjang belanja!',
+                            'success'
+                          )
                     })
                     .catch((err) => {
                         console.log(err)
@@ -166,7 +178,12 @@ class ProductFlightAddToCart extends Component {
                     })
                     .then((res) => {
                         console.log(res.data)
-                        alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        // alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        Swal.fire(
+                            'Pesanan Anda berhasil dibuat!',
+                            'Silahkan upload bukti di keranjang belanja!',
+                            'success'
+                          )
                     })
                     .catch((err) => {
                         console.log(err)
@@ -216,7 +233,12 @@ class ProductFlightAddToCart extends Component {
                     })
                     .then((res) => {
                         console.log(res.data)
-                        alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        // alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        Swal.fire(
+                            'Pesanan Anda berhasil dibuat!',
+                            'Silahkan upload bukti di keranjang belanja!',
+                            'success'
+                          )
                     })
                     .catch((err) => {
                         console.log(err)
@@ -269,7 +291,12 @@ class ProductFlightAddToCart extends Component {
                     })
                     .then((res) => {
                         console.log(res.data)
-                        alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        // alert('Pesanan Anda berhasil dibuat! Silahkan upload bukti di keranjang belanja!')
+                        Swal.fire(
+                            'Pesanan Anda berhasil dibuat!',
+                            'Silahkan upload bukti di keranjang belanja!',
+                            'success'
+                          )
                     })
                     .catch((err) => {
                         console.log(err)

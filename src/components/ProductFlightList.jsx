@@ -3,10 +3,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
+import Pagination from 'react-js-pagination';
 import {
     Container, Form, FormGroup, Input, Row, Button, Col, Card, CardText
 } from 'reactstrap';
 import { select_flight  } from '../actions/'
+import FooterTID from './FooterTID';
 
 
 
@@ -14,7 +16,7 @@ const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'ID
 
 class ProductFlightList extends Component {
 
-    state = { listMaskapai: [], listProductFlight: [], searchListFlight: [], idSelectedItem: 0}
+    state = { listMaskapai: [], listProductFlight: [], searchListFlight: [], idSelectedItem: 0,  activePage: 1, itemPerPage: 5}
 
     componentDidMount() {
         this.getListMaskapai();
@@ -44,6 +46,11 @@ class ProductFlightList extends Component {
             this.setState({ listMaskapai: res.data })
             console.log(res.data)
         })
+    }
+
+    handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
     }
 
     onBtnSearchClick() {
@@ -144,7 +151,11 @@ class ProductFlightList extends Component {
 
     renderListFlight = () => {
         if(this.state.searchListFlight.length !==0){
-            var listJSXFlight = this.state.searchListFlight.map((item) => {
+            var indexOfLastTodo = this.state.activePage * this.state.itemPerPage;
+            var indexOfFirstTodo = indexOfLastTodo - this.state.itemPerPage;
+            var renderedProjects =  this.state.searchListFlight.slice(indexOfFirstTodo, indexOfLastTodo);
+
+            var listJSXFlight = renderedProjects.map((item) => {
                 return (
                     <Col lg="12" style={{ marginTop: "5px", marginBottom:"10px" }}>
                     
@@ -195,6 +206,7 @@ class ProductFlightList extends Component {
     render(){
         if(this.props.username !== '') {
         return(
+            <div>
             <center><Container>
                 <Form className="form"  style={{border: "3px solid light", borderRadius: 10, backgroundColor:"#2abe8d", width:"600px", height: "200px", marginTop:"80px"}}>
                 <Row style={{justifyContent:"space-around"}}>
@@ -228,8 +240,16 @@ class ProductFlightList extends Component {
                 </Form>
                 <br />
                 {this.renderListFlight()}
+                <center><Pagination
+                            activePage={this.state.activePage}
+                            itemsCountPerPage={this.state.itemPerPage}
+                            totalItemsCount={this.state.searchListFlight.length}
+                            pageRangeDisplayed={5}
+                            onChange={this.handlePageChange.bind(this)}
+                        /></center>
             </Container></center>
-            
+            <FooterTID />
+            </div>
         )
         }
         return <Redirect to="/login" />

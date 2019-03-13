@@ -23,6 +23,7 @@ class ProductFlightCartDetail extends Component {
         console.log(params)
         var id = parseInt(params.order_id)
         var username = params.username;
+        console.log(id)
         axios.post('http://localhost:1212/flight/lihatcartdetail', {
             username, id
         })

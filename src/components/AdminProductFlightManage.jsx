@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import moment from 'moment';
 import Pagination from 'react-js-pagination';
-import '../supports/css/tablelist.css';
 import { rupiahConverter } from '../actions'
 import AdminProductFlightSideBarMenu from './AdminProductFlightSideBarMenu';
 

@@ -111,6 +111,7 @@ class HeaderTID extends Component {
                         </div>
                         <nav id="nav-menu-container">
                             <ul className="nav-menu">
+                                <li className="menu-has-children"><a href="#product"><i className="fa fa-bell"/></a></li>
                                 <li className="menu-has-children"><a href="#product">Halo, {this.props.username} <i className="fa fa-chevron-down"/></a>
                                     <ul>
                                         <li onClick={this.onLogoutSelect}><a href="#flight">Keluar</a></li>

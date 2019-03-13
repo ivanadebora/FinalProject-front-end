@@ -4,16 +4,18 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import Cookies from 'universal-cookie';
+import Pagination from 'react-js-pagination';
 import {
   Card, CardText, CardGroup, Row, Container, Col
 } from 'reactstrap';
+import FooterTID from './FooterTID';
 
 const cookie = new Cookies()
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
 
 class ProductFlightHistory extends Component {
 
-    state = {listHistory: [], idSelectedItem: 0}
+    state = {listHistory: [], idSelectedItem: 0, activePage: 1, itemPerPage: 3}
 
     componentDidMount() {
       this.getListHistory();
@@ -34,6 +36,11 @@ class ProductFlightHistory extends Component {
       })
     }
 
+  handlePageChange(pageNumber) {
+      console.log(`active page is ${pageNumber}`);
+      this.setState({activePage: pageNumber});
+  }
+
     onLihatClick = (id) => {
       this.setState({idSelectedItem:id})
       console.log(id)
@@ -42,9 +49,13 @@ class ProductFlightHistory extends Component {
 
     renderListHistoryFlight = () => {
       if(this.state.listHistory.length !==0){
-        var listJSXHistoryFlight = this.state.listHistory.map((item) => {
+        var indexOfLastTodo = this.state.activePage * this.state.itemPerPage;
+        var indexOfFirstTodo = indexOfLastTodo - this.state.itemPerPage;
+        var renderedProjects =  this.state.listHistory.slice(indexOfFirstTodo, indexOfLastTodo);
+
+        var listJSXHistoryFlight = renderedProjects.map((item, index) => {
             return (
-              <Col lg="12" style={{ marginTop: "20px" }}>
+              <Col lg="12" style={{ marginTop: "20px" }} key={index}>
                 <Card className="card bg-dark" style={{height:130, borderRadius:10}}>
                   <CardGroup style={{marginTop:5, marginBottom:5}}>
                     <CardText>
@@ -55,7 +66,7 @@ class ProductFlightHistory extends Component {
                     <CardText>
                     <Row>
                       <h3 style={{fontSize:18, paddingLeft:40, color: "#fff" }}>Kode Booking: {item.kode_booking}</h3>
-                      <h3 style={{fontSize:18, paddingLeft:780, color: "#fff"}}>{rupiah.format(item.total_harga)}</h3>
+                      <h3 style={{fontSize:18, paddingLeft:600, color: "#fff"}}>{rupiah.format(item.total_harga)}</h3>
                     </Row>
                     </CardText>
                   </CardGroup >
@@ -93,6 +104,7 @@ class ProductFlightHistory extends Component {
     render(){
       if(this.props.username !== '') {
         return(
+          <div>
           <Container>
             <Card className="card bg-dark" style={{marginTop:100,  borderRadius:5}}>
               <CardText>
@@ -100,7 +112,17 @@ class ProductFlightHistory extends Component {
               </CardText>
             </Card>
             {this.renderListHistoryFlight()}
+
+            <center><Pagination
+                            activePage={this.state.activePage}
+                            itemsCountPerPage={this.state.itemPerPage}
+                            totalItemsCount={this.state.listHistory.length}
+                            pageRangeDisplayed={3}
+                            onChange={this.handlePageChange.bind(this)}
+                        /></center>
           </Container>
+          <FooterTID />
+          </div>
         )
       }
       return <Redirect to='/' />

@@ -22,7 +22,7 @@ class AdminPaymentFlightManage extends Component {
 
 
     getListTrans = ()  => {
-      axios.post( 'http://localhost:1212/flight/paymentgettrans')
+      axios.post( 'http://localhost:1212/admin/flight/payment/paymentgettrans')
       .then((res) => {
           console.log(res.data)
           this.setState({listTrans:res.data, listFilterTrans:res.data})
@@ -49,13 +49,13 @@ class AdminPaymentFlightManage extends Component {
     onBtnUpdateClick = (id) => {
       var status_transaksi = this.refs.updateStatus.value;
 
-        axios.post('http://localhost:1212/flight/editpaymentstatus/'+id, {
+        axios.post('http://localhost:1212/admin/flight/payment/editpaymentstatus/'+id, {
             status_transaksi
         })
         .then((res) => {
             console.log(res)
             alert("Berhasil mengubah status pembayaran!")
-            this.setState({ listTrans: res.data, listFilterTrans:[], idSelectedtoEdit: 0 })
+            this.setState({ listTrans: res.data, listFilterTrans:res.data, idSelectedtoEdit: 0 })
         
         })
         .catch((err) => {
@@ -64,7 +64,7 @@ class AdminPaymentFlightManage extends Component {
     }
 
     onBtnAccepted = (id) => {
-        axios.post('http://localhost:1212/flight/acceptedmailsend/'+id)
+        axios.post('http://localhost:1212/admin/flight/payment/acceptedmailsend/'+id)
         .then((res) => {
             console.log(res)
             alert("Email berhasil dikirim!")
@@ -75,11 +75,11 @@ class AdminPaymentFlightManage extends Component {
     }
 
     onBtnDenied = (id) => {
-        axios.post('http://localhost:1212/flight/deniedmailsend/'+id)
+        axios.post('http://localhost:1212/admin/flight/payment/deniedmailsend/'+id)
         .then((res) => {
             console.log(res)
             alert("Email berhasil dikirim!")
-            axios.post('http://localhost:1212/flight/stockupdate/'+id)
+            axios.post('http://localhost:1212/admin/flight/payment/stockupdate/'+id)
             .then((res) => {
                 alert("Jumlah seat telah di-update!")
             })

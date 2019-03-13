@@ -12,9 +12,11 @@ import {
 import FooterTID from './FooterTID';
 
 
+
 const cookie = new Cookies();
 const rupiah = new Intl.NumberFormat('in-Rp', { style: 'currency', currency: 'IDR' })
 class ProductFlightTicket extends Component {
+    
 
     state = {listHistory: {}, listPassenger: {}}
     
@@ -39,8 +41,9 @@ class ProductFlightTicket extends Component {
         })
         .catch((err) => {
           console.log(err)
-      })
+        })
     }
+
 
     render(){
         var {username, image_maskapai, nama, code, seat_class, tanggal, qty, harga, total_harga, tanggal_pesan, status_transaksi,
@@ -51,7 +54,7 @@ class ProductFlightTicket extends Component {
         var newUser = cookie.get('dataUser')
         if (newUser !== undefined) {
             return(
-                <div>
+                <div id="HTMLtoPDF">
                 <Container id="hero" className="wow fadeIn" style={{border: "3px solid light", backgroundColor:"#fff", width:"1200px", marginTop:"200px"}}>
                     <Form className="form">
                     <center><h2 style={{marginTop: "-100px", color:"#000", fontWeight:"bold"}}>E-Tickets:</h2></center>
@@ -99,7 +102,6 @@ class ProductFlightTicket extends Component {
                         <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Harga/pax: {rupiah.format(harga)}</h3>
                         <h3 style={{fontSize:"14px", color:"#000", fontWeight:"bold", textAlign:"center"}}>Total Pembayaran: {rupiah.format(total_harga)}</h3>
                     </FormGroup>
-                    <FormGroup>
                     <FormGroup style={{height:"400px", width:"600px", paddingLeft:"10px"}}>
                     <h3 style={{fontSize:"16px", fontWeight:"bold", color:"#000", textAlign:"left"}}>Detail Penumpang: </h3>
                     <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger1} {ktp1}</h3>
@@ -108,7 +110,9 @@ class ProductFlightTicket extends Component {
                     <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger4} {ktp4}</h3>
                     <h3 style={{fontSize:"14px", color:"#000", textAlign:"left"}}>{passenger5} {ktp5}</h3>
                     </FormGroup>
-                    </FormGroup>
+                    {/* <FormGroup style={{marginTop:-300}}>
+                        <center><input type="button" className="btn btn-primary" value="Print Tiket" style={{width:"200px"}}  /></center>
+                    </FormGroup> */}
                     </Form>
                 </Container>
                 <FooterTID />
