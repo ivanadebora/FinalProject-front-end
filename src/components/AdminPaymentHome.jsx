@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {
     TabContent, TabPane, Nav, NavItem, 
-    NavLink, Card, CardTitle, CardBody, CardText,
+    NavLink, Card,
     Row, Col
 } from 'reactstrap';
 import AdminPaymentFlightSideBarMenu from './AdminPaymentFlightSideBarMenu';
@@ -166,7 +166,6 @@ class AdminPaymentHome extends Component {
                             <h3 style={{fontSize:18, color:"#fff"}}>{this.state.onWaitingConf}</h3>
                             <h3 style={{fontSize:14, color:"#fff"}}> from {this.state.allTransCount} transaction</h3>
                           </div>
-                         
                           </div>
                           </div>
                           </div>
